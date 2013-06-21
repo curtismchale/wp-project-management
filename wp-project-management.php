@@ -50,6 +50,7 @@ class WP_Proj{
 
 		// Classes
 		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Users.php' );
+		include( WP_PROJ_FOLDER . '/class/class.Queries.php' );
 
 		// misc
 		include( WP_PROJ_FOLDER . '/includes/shortcodes.php' );
