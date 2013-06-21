@@ -34,7 +34,32 @@ class WP_Proj{
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 
+		$this->constants();
+		$this->includes();
+
 	} // construct
+
+	/**
+	 * Includes any files we need for our plugin
+	 *
+	 * @since 0.1
+	 * @author  SFNdesign, Curtis McHale
+	 * @access private
+	 */
+	private function includes(){
+
+	} // includes
+
+	/**
+	 * Defines any constants we need for the site
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 */
+	public function constants(){
+		define( 'WP_PROJ_FOLDER', dirname( __FILE__ ) );
+	} // constants
 
 	/**
 	 * Fired when plugin is activated
