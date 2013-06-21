@@ -48,6 +48,8 @@ class WP_Proj{
 	 */
 	private function includes(){
 
+		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Users.php' );
+
 	} // includes
 
 	/**
