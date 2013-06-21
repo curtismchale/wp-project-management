@@ -70,6 +70,26 @@ class WP_Proj{
 	 */
 	public function activate( $network_wide ){
 
+		add_role( 'wp_proj_client', 'Client' );
+
+		// setting new caps for admins
+		$role = get_role( 'administrator' );
+
+		$role->add_cap( 'create_clients' );
+		$role->add_cap( 'read_clients' );
+		$role->add_cap( 'update_clients' );
+		$role->add_cap( 'delete_clients' );
+
+		$role->add_cap( 'create_projects' );
+		$role->add_cap( 'read_projects' );
+		$role->add_cap( 'update_projects' );
+		$role->add_cap( 'delete_projects' );
+
+		$role->add_cap( 'create_tasks' );
+		$role->add_cap( 'read_tasks' );
+		$role->add_cap( 'update_tasks' );
+		$role->add_cap( 'delete_tasks' );
+
 	} // activate
 
 	/**
