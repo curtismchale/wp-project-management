@@ -50,6 +50,8 @@ class WP_Proj{
 
 		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Users.php' );
 
+		include( WP_PROJ_FOLDER . '/includes/shortcodes.php' );
+
 	} // includes
 
 	/**
