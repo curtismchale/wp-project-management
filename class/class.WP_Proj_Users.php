@@ -13,7 +13,7 @@ class WP_Proj_Users{
 	 *
 	 * @uses    register_post_type
 	 *
-	 * @since   1.0
+	 * @since   0.1
 	 * @author  SFNdesign, Curtis McHale
 	 */
 	public function user_cpt(){
