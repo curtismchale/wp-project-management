@@ -48,8 +48,10 @@ class WP_Proj{
 	 */
 	private function includes(){
 
+		// Classes
 		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Users.php' );
 
+		// misc
 		include( WP_PROJ_FOLDER . '/includes/shortcodes.php' );
 
 	} // includes
