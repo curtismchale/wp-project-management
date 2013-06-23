@@ -104,6 +104,24 @@ class WP_Proj{
 	 */
 	public function deactivate( $network_wide ){
 
+		// removing new caps for admins
+		$role = get_role( 'administrator' );
+
+		$role->remove_cap( 'create_contact' );
+		$role->remove_cap( 'read_contact' );
+		$role->remove_cap( 'update_contact' );
+		$role->remove_cap( 'delete_contact' );
+
+		$role->remove_cap( 'create_projects' );
+		$role->remove_cap( 'read_projects' );
+		$role->remove_cap( 'update_projects' );
+		$role->remove_cap( 'delete_projects' );
+
+		$role->remove_cap( 'create_tasks' );
+		$role->remove_cap( 'read_tasks' );
+		$role->remove_cap( 'update_tasks' );
+		$role->remove_cap( 'delete_tasks' );
+
 	} // deactivate
 
 	/**
