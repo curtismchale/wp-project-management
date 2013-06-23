@@ -7,6 +7,8 @@ class WP_Proj_Contacts{
 		add_action( 'init', array( $this, 'user_cpt' ) );
 		add_action( 'init', array( $this, 'company_cpt' ) );
 
+		add_action( 'admin_menu', array( $this, 'add_contact_menu' ) );
+
 	} // __construct
 
 	/**
@@ -37,6 +39,7 @@ class WP_Proj_Contacts{
 		$arguments = array(
 			'labels'                => apply_filters( 'wpproj_register_user_cpt_labels', $labels ),
 			'public'                => true,
+			'show_in_menu'          => 'wpproj/contacts.php',
 			'menu_position'         => 5, // sets admin menu position
 			//'menu_icon'           => get_stylesheet_directory_uri().'/assets/images/show-post-icon.png',
 			'hierarchical'          => false, // funcions like posts
@@ -80,6 +83,7 @@ class WP_Proj_Contacts{
 		$arguments = array(
 			'labels'                => apply_filters( 'wpproj_register_comp_cpt_labels', $labels ),
 			'public'                => true,
+			'show_in_menu'          => 'wpproj/contacts.php',
 			'menu_position'         => 5, // sets admin menu position
 			//'menu_icon'           => get_stylesheet_directory_uri().'/assets/images/show-post-icon.png',
 			'hierarchical'          => false, // funcions like posts
@@ -94,6 +98,23 @@ class WP_Proj_Contacts{
 		);
 
 	} // company_cpt
+
+	/**
+	 * Puts the contact admin menu in place
+	 *
+	 * @todo should really hide this later and make it available with a 'dev' constant
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses add_menu_page()            Adds menu page given args
+	 */
+	public function add_contact_menu(){
+
+		add_menu_page( 'Contact', 'WPProj Contacts', 'create_contact', 'wpproj/contacts.php', '', '', 100 );
+
+	} // add_contact_menu
 
 } // WP_Proj_Users
 
