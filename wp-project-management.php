@@ -80,10 +80,10 @@ class WP_Proj{
 		// setting new caps for admins
 		$role = get_role( 'administrator' );
 
-		$role->add_cap( 'create_clients' );
-		$role->add_cap( 'read_clients' );
-		$role->add_cap( 'update_clients' );
-		$role->add_cap( 'delete_clients' );
+		$role->add_cap( 'create_contact' );
+		$role->add_cap( 'read_contact' );
+		$role->add_cap( 'update_contact' );
+		$role->add_cap( 'delete_contact' );
 
 		$role->add_cap( 'create_projects' );
 		$role->add_cap( 'read_projects' );
