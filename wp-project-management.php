@@ -52,6 +52,9 @@ class WP_Proj{
 		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Contacts.php' );
 		include( WP_PROJ_FOLDER . '/class/class.Queries.php' );
 
+		// P2P
+		include( WP_PROJ_FOLDER . '/lib/p2p/posts-to-posts.php' );
+
 		// misc
 		include( WP_PROJ_FOLDER . '/includes/shortcodes.php' );
 
