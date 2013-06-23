@@ -5,6 +5,7 @@ class WP_Proj_Contacts{
 	function __construct(){
 
 		add_action( 'init', array( $this, 'user_cpt' ) );
+		add_action( 'init', array( $this, 'company_cpt' ) );
 
 	} // __construct
 
@@ -49,7 +50,50 @@ class WP_Proj_Contacts{
 			apply_filters( 'wpproj_register_user_cpt_args', $arguments )
 		);
 
-	} // new_cpt
+	} // user_cpt
+
+		/**
+	 * Builds out the custom post types for the site
+	 *
+	 * @uses    register_post_type
+	 *
+	 * @since   0.1
+	 * @author  SFNdesign, Curtis McHale
+	 */
+	public function company_cpt(){
+
+		$labels = array(
+			'name'                  => __('WP Proj Company'),
+			'singular_name'         => __('WP Proj Company'),
+			'add_new'               => __('Add New'),
+			'add_new_item'          => __('Add New WP Proj Company'),
+			'edit'                  => __('Edit'),
+			'edit_item'             => __('Edit WP Proj Company'),
+			'new_item'              => __('New WP Proj Company'),
+			'view'                  => __('View WP Proj Company'),
+			'view_item'             => __('View WP Proj Company'),
+			'search_items'          => __('Search WP Proj Companys'),
+			'not_found'             => __('No WP Proj Companys Found'),
+			'not_found_in_trash'    => __('No WP Proj Companys found in Trash')
+		);
+
+		$arguments = array(
+			'labels'                => apply_filters( 'wpproj_register_comp_cpt_labels', $labels ),
+			'public'                => true,
+			'menu_position'         => 5, // sets admin menu position
+			//'menu_icon'           => get_stylesheet_directory_uri().'/assets/images/show-post-icon.png',
+			'hierarchical'          => false, // funcions like posts
+			'supports'              => array('title', 'editor', 'revisions', 'excerpt', 'thumbnail'),
+			'rewrite'               => array('slug' => 'company', 'with_front' => true,), // permalinks format
+			'can_export'            => true,
+		);
+
+		register_post_type(
+			'wpproj_company',
+			apply_filters( 'wpproj_register_comp_cpt_args', $arguments )
+		);
+
+	} // company_cpt
 
 } // WP_Proj_Users
 
