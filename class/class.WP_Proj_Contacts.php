@@ -9,6 +9,8 @@ class WP_Proj_Contacts{
 
 		add_action( 'admin_menu', array( $this, 'add_contact_menu' ) );
 
+		add_action( 'p2p_init', array( $this, 'set_contact_connections' ) );
+
 	} // __construct
 
 	/**
@@ -115,6 +117,27 @@ class WP_Proj_Contacts{
 		add_menu_page( 'Contact', 'WPProj Contacts', 'create_contact', 'wpproj/contacts.php', '', '', 100 );
 
 	} // add_contact_menu
+
+	/**
+	 * Registering the connections needed in our contact class
+	 *
+	 * @since 0.1
+	 * @auther SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses p2p_register_connection_type()         Adds p2p connection given args
+	 */
+	public function set_contact_connections(){
+
+		$connection_args = array(
+			'name'      => 'wpproj_comp_to_wpproj_users',
+			'from'      => 'wpproj_company',
+			'to'        => 'wpproj_users',
+		);
+
+		p2p_register_connection_type( $connection_args );
+
+	} // set_contact_connections
 
 } // WP_Proj_Users
 
