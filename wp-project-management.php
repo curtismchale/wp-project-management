@@ -49,7 +49,7 @@ class WP_Proj{
 	private function includes(){
 
 		// Classes
-		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Users.php' );
+		include( WP_PROJ_FOLDER . '/class/class.WP_Proj_Contacts.php' );
 		include( WP_PROJ_FOLDER . '/class/class.Queries.php' );
 
 		// misc

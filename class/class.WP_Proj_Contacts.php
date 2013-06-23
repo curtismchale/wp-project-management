@@ -1,6 +1,6 @@
 <?php
 
-class WP_Proj_Users{
+class WP_Proj_Contacts{
 
 	function __construct(){
 
@@ -53,4 +53,4 @@ class WP_Proj_Users{
 
 } // WP_Proj_Users
 
-new WP_Proj_Users();
+new WP_Proj_Contacts();
