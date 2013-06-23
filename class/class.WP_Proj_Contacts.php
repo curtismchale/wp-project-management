@@ -137,6 +137,14 @@ class WP_Proj_Contacts{
 
 		p2p_register_connection_type( $connection_args );
 
+		$connection_args = array(
+			'name'      => 'wpproj_users_to_users',
+			'from'      => 'wpproj_users',
+			'to'        => 'user',
+		);
+
+		p2p_register_connection_type( $connection_args );
+
 	} // set_contact_connections
 
 } // WP_Proj_Users
