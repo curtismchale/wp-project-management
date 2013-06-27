@@ -5,11 +5,16 @@ jQuery(document).ready(function($) {
 
 		// no linky
 		e.preventDefault();
-		console.log('test');
+
+		var current = $(this);
 
 		$.post( WPPROJ.ajaxurl, { action: 'get_add_contact_form' }, function ( response ){
-			console.log('after test');
-			console.log( response );
+
+			if ( response.success === true ){
+				console.log( 'yes' );
+			} else {
+				$(current).parent('p').append(response.value).find('.error').delay(4000).fadeOut(4000);
+			}
 
 		}, 'json' );
 
