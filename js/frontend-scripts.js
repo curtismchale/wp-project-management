@@ -9,9 +9,9 @@ jQuery(document).ready(function($) {
 		var current = $(this);
 
 		$.post( WPPROJ.ajaxurl, { action: 'get_add_contact_form' }, function ( response ){
-
+console.log(response);
 			if ( response.success === true ){
-				console.log( 'yes' );
+				$(current).parent('p').append(response.value);
 			} else {
 				$(current).parent('p').append(response.value).find('.error').delay(4000).fadeOut(4000);
 			}
