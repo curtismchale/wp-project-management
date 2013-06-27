@@ -17,14 +17,59 @@ class WP_Proj_Contacts{
 
 	} // __construct
 
+	/**
+	 * Builds out our create contact form
+	 *
+	 * @since 0.1
+	 * @auther SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @return array
+	 *
+	 * @uses current_user_can()         Checks cap listed against current user
+	 */
 	public function get_add_contact_form(){
 
-		$ajax_response = array(
-			'success'   => true,
-			'value'     => 'yes',
-		);
+		if ( current_user_can( 'create_contact' ) ){
 
-		echo json_encode( $ajax_response );
+			$html = '<form id="create-contact">';
+
+				$html .= '<h4>Add Contact</h4>';
+				$html .= '<label for="contact-first-name">First Name</label>';
+				$html .= '<input type="text" name="contact-first-name" id="contact-first-name" value="" />';
+
+				$html .= '<label for="contact-last-name">Last Name</label>';
+				$html .= '<input type="text" name="contact-last-name" id="contact-last-name" value="" />';
+
+				$html .= '<label for="contact-position">Position</label>';
+				$html .= '<input type="text" name="contact-position" id="contact-position" value="" />';
+
+				$html .= '<label for="contact-email">Email</label>';
+				$html .= '<input type="text" name="contact-email" id="contact-email" value="" />';
+
+				$html .= wp_nonce_field( 'create-contact', '_create_contact_nonce', '', false );
+				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
+
+			$html .= '</form><!-- #create-contact -->';
+
+			$ajax_response = array(
+				'success'   => true,
+				'value'     => $html,
+			);
+
+		} else {
+			$ajax_response = array(
+				'success'   => false,
+				'value'     => '<p class="error">You do not have permission to add contacts</p>',
+			);
+		} // if ( current_user_can( 'create_contact' )
+
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+			echo json_encode( $ajax_response );
+			die;
+		} else {
+			return $ajax_response;
+		}
 
 	} // get_add_contact_form
 
