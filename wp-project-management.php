@@ -48,7 +48,8 @@ class WP_Proj{
 	 * @author SFNdesign, Curtis McHale
 	 * @access public
 	 *
-	 * @uses wp_enqueue_script      Registers and calls script
+	 * @uses wp_enqueue_script()        Registers and calls script
+	 * @uses wp_localize_script()       Localizing our script so I have ajax in it
 	 */
 	public function enqueue(){
 
