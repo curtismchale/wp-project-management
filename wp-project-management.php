@@ -57,6 +57,7 @@ class WP_Proj{
 
 		// misc
 		include( WP_PROJ_FOLDER . '/includes/shortcodes.php' );
+		include( WP_PROJ_FOLDER . '/includes/template-tags.php' );
 
 	} // includes
 

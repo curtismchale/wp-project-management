@@ -25,6 +25,8 @@ class WPProj_Shortcodes{
 
 		$html = '<section id="wpproj-users">';
 
+			$html .= wpproj_get_add_contact_button();
+
 			if ( $users->have_posts() ) : while ( $users->have_posts() ) : $users->the_post();
 
 				$html .= get_the_title();
