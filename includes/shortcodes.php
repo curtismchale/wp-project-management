@@ -21,6 +21,8 @@ class WPProj_Shortcodes{
 	 */
 	public function show_users(){
 
+		if ( ! current_user_can( 'read_contact' ) ) return '<p class="error">You do not have permission to view this content</p>';
+
 		$users = new WP_Proj_User_Query();
 
 		$html = '<section id="wpproj-users">';
