@@ -27,6 +27,7 @@ class WP_Proj_Contacts{
 	 * @return array
 	 *
 	 * @uses current_user_can()         Checks cap listed against current user
+	 * @uses wp_nonce_field()           Generates a nonce field that we can check later
 	 */
 	public function get_add_contact_form(){
 
