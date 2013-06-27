@@ -11,7 +11,22 @@ class WP_Proj_Contacts{
 
 		add_action( 'p2p_init', array( $this, 'set_contact_connections' ) );
 
+		/** AJAX **/
+		add_action( 'wp_ajax_get_add_contact_form', array( $this, 'get_add_contact_form' ) );
+		add_action( 'wp_ajax_nopriv_get_add_contact_form', array( $this, 'get_add_contact_form' ) );
+
 	} // __construct
+
+	public function get_add_contact_form(){
+
+		$ajax_response = array(
+			'success'   => true,
+			'value'     => 'yes',
+		);
+
+		echo json_encode( $ajax_response );
+
+	} // get_add_contact_form
 
 	/**
 	 * Builds out the custom post types for the site
