@@ -37,7 +37,24 @@ class WP_Proj{
 		$this->constants();
 		$this->includes();
 
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
+
 	} // construct
+
+	/**
+	 * Enqueues scripts and styles the WordPress way
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses wp_enqueue_script      Registers and calls script
+	 */
+	public function enqueue(){
+
+		wp_enqueue_script( 'wpproj-frontend-js', plugins_url( '/wp-project-management/js/frontend-scripts.min.js' ), array( 'jquery' ), '0.1', true );
+
+	} // enqueue
 
 	/**
 	 * Includes any files we need for our plugin
