@@ -66,6 +66,27 @@ class WP_Proj_Contacts{
 				$html .= '<label for="contact-fax">Fax</label>';
 				$html .= '<input type="text" name="contact-fax" id="contact-fax" value="" />';
 
+				$html .= '<h5>Address</h5>';
+
+				$html .= '<label for="contact-street">Street</label>';
+				$html .= '<input type="text" name="contact-street" id="contact-street" value="" />';
+				$html .= '<input type="text" name="contact-street-second" id="contact-street-second" value="" />';
+
+				$html .= '<label for="contact-city">City</label>';
+				$html .= '<input type="text" name="contact-city" id="contact-city" value="" />';
+
+				$html .= '<label for="contact-prov-state">Province/State</label>';
+				$html .= '<input type="text" name="contact-prov-state" id="contact-prov-state" value="" />';
+
+				$html .= '<label for="contact-prov-state">Province/State</label>';
+				$html .= '<input type="text" name="contact-prov-state" id="contact-prov-state" value="" />';
+
+				$html .= '<label for="contact-zip-postal">Zip/Postal Code</label>';
+				$html .= '<input type="text" name="contact-zip-postal" id="contact-zip-postal" value="" />';
+
+				$html .= '<label for="contact-country">Country</label>';
+				$html .= $this->get_available_countries_dropdown();
+
 				$html .= apply_filters( 'wpproj_bottom_contact_field', $html );
 
 				$html .= wp_nonce_field( 'create-contact', '_create_contact_nonce', '', false );
@@ -93,6 +114,16 @@ class WP_Proj_Contacts{
 		}
 
 	} // get_add_contact_form
+
+	private function get_available_countries_dropdown(){
+
+		$html = '<select name="contact-country" id="contact-country">';
+			$html .= '<option>something</option>';
+		$html .= '</select>';
+
+		return $html;
+
+	} // get_available_countries_dropdown
 
 	/**
 	 * Builds out the custom post types for the site
