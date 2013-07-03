@@ -275,8 +275,9 @@ class WP_Proj_Contacts{
 	 *
 	 * @return array
 	 *
-	 * @uses current_user_can()         Checks cap listed against current user
-	 * @uses wp_nonce_field()           Generates a nonce field that we can check later
+	 * @uses current_user_can()                             Checks cap listed against current user
+	 * @uses wp_nonce_field()                               Generates a nonce field that we can check later
+	 * @uses $this->get_available_countries_dropdown()      Returns dropdown with available countries
 	 */
 	public function get_add_contact_form(){
 
@@ -367,6 +368,18 @@ class WP_Proj_Contacts{
 
 	} // get_add_contact_form
 
+	/**
+	 * Builds us a dropdown of the available countries for our contacts
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access private
+	 *
+	 * @return string
+	 *
+	 * @uses $this->countries       Array of countries
+	 * @uses esc_attr()             Keeping things safe
+	 */
 	private function get_available_countries_dropdown(){
 
 		$countries = $this->countries;
