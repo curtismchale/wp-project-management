@@ -37,7 +37,10 @@ class WP_Proj_Contacts{
 
 				$html .= '<h4>Add Contact</h4>';
 
-				$html .= apply_filters( 'wpproj_top_contact_field', $html );
+				ob_start();
+				do_action( 'wpproj_top_contact_field' );
+				$html .= ob_get_contents();
+				ob_clean();
 
 				$html .= '<label for="contact-first-name">First Name</label>';
 				$html .= '<input type="text" name="contact-first-name" id="contact-first-name" value="" />';
