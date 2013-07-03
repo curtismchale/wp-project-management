@@ -292,50 +292,73 @@ class WP_Proj_Contacts{
 				$html .= ob_get_contents();
 				ob_clean();
 
+				$html .= '<p id="first-name">';
 				$html .= '<label for="contact-first-name">First Name</label>';
 				$html .= '<input type="text" name="contact-first-name" id="contact-first-name" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="last-name">';
 				$html .= '<label for="contact-last-name">Last Name</label>';
 				$html .= '<input type="text" name="contact-last-name" id="contact-last-name" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="position">';
 				$html .= '<label for="contact-position">Position</label>';
 				$html .= '<input type="text" name="contact-position" id="contact-position" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="email">';
 				$html .= '<label for="contact-email">Email</label>';
 				$html .= '<input type="text" name="contact-email" id="contact-email" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="phone-primary">';
 				$html .= '<label for="contact-phone-primary">Primary Phone</label>';
 				$html .= '<input type="text" name="contact-phone-primary" id="contact-phone-primary" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="primary-ext">';
 				$html .= '<label for="contact-phone-primary-ext">Primary Phone Extension</label>';
 				$html .= '<input type="text" name="contact-phone-primary-ext" id="contact-phone-primary-ext" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="mobile">';
 				$html .= '<label for="contact-mobile">Mobile</label>';
 				$html .= '<input type="text" name="contact-mobile" id="contact-mobile" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="fax">';
 				$html .= '<label for="contact-fax">Fax</label>';
 				$html .= '<input type="text" name="contact-fax" id="contact-fax" value="" />';
+				$html .= '</p>';
 
 				$html .= '<h5>Address</h5>';
 
+				$html .= '<p id="street-address">';
 				$html .= '<label for="contact-street">Street</label>';
-				$html .= '<input type="text" name="contact-street" id="contact-street" value="" />';
+				$html .= '<input type="text" name="contact-street" id="contact-street" value="" /><br />';
 				$html .= '<input type="text" name="contact-street-second" id="contact-street-second" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="city">';
 				$html .= '<label for="contact-city">City</label>';
 				$html .= '<input type="text" name="contact-city" id="contact-city" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="prov-state">';
 				$html .= '<label for="contact-prov-state">Province/State</label>';
 				$html .= '<input type="text" name="contact-prov-state" id="contact-prov-state" value="" />';
+				$html .= '</p>';
 
-				$html .= '<label for="contact-prov-state">Province/State</label>';
-				$html .= '<input type="text" name="contact-prov-state" id="contact-prov-state" value="" />';
-
+				$html .= '<p id="zip-postal">';
 				$html .= '<label for="contact-zip-postal">Zip/Postal Code</label>';
 				$html .= '<input type="text" name="contact-zip-postal" id="contact-zip-postal" value="" />';
+				$html .= '</p>';
 
+				$html .= '<p id="country">';
 				$html .= '<label for="contact-country">Country</label>';
 				$html .= $this->get_available_countries_dropdown();
+				$html .= '</p>';
 
 				ob_start();
 				do_action( 'wpproj_bottom_contact_field' );
