@@ -56,6 +56,8 @@ class WP_Proj{
 		wp_enqueue_script( 'wpproj-frontend-js', plugins_url( '/wp-project-management/js/frontend-scripts.min.js' ), array( 'jquery' ), '0.1', true );
 		wp_localize_script(	'wpproj-frontend-js', 'WPPROJ', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
+		wp_enqueue_style( 'wpproj-frontend-styles', plugins_url( '/wp-project-management/css/frontend-styles.css' ), '', '0.1', 'all' );
+
 	} // enqueue
 
 	/**
