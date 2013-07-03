@@ -37,7 +37,7 @@ class WP_Proj_Contacts{
 
 				$html .= '<h4>Add Contact</h4>';
 
-				do_action( 'wpproj_top_contact_field' );
+				$html .= apply_filters( 'wpproj_top_contact_field', $html );
 
 				$html .= '<label for="contact-first-name">First Name</label>';
 				$html .= '<input type="text" name="contact-first-name" id="contact-first-name" value="" />';
@@ -57,7 +57,7 @@ class WP_Proj_Contacts{
 				$html .= '<label for="contact-phone-secondary">Secondary Phone</label>';
 				$html .= '<input type="text" name="contact-phone-secondary" id="contact-phone-secondary" value="" />';
 
-				do_action( 'wpproj_bottom_contact_field' );
+				$html .= apply_filters( 'wpproj_bottom_contact_field', $html );
 
 				$html .= wp_nonce_field( 'create-contact', '_create_contact_nonce', '', false );
 				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
