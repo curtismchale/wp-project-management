@@ -54,8 +54,14 @@ class WP_Proj_Contacts{
 				$html .= '<label for="contact-phone-primary">Primary Phone</label>';
 				$html .= '<input type="text" name="contact-phone-primary" id="contact-phone-primary" value="" />';
 
-				$html .= '<label for="contact-phone-secondary">Secondary Phone</label>';
-				$html .= '<input type="text" name="contact-phone-secondary" id="contact-phone-secondary" value="" />';
+				$html .= '<label for="contact-phone-primary-ext">Primary Phone Extension</label>';
+				$html .= '<input type="text" name="contact-phone-primary-ext" id="contact-phone-primary-ext" value="" />';
+
+				$html .= '<label for="contact-mobile">Mobile</label>';
+				$html .= '<input type="text" name="contact-mobile" id="contact-mobile" value="" />';
+
+				$html .= '<label for="contact-fax">Fax</label>';
+				$html .= '<input type="text" name="contact-fax" id="contact-fax" value="" />';
 
 				$html .= apply_filters( 'wpproj_bottom_contact_field', $html );
 
