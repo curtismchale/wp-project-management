@@ -283,7 +283,7 @@ class WP_Proj_Contacts{
 
 		if ( current_user_can( 'create_contact' ) ){
 
-			$html = '<form id="create-contact">';
+			$html = '<form id="create-contact" class="wpproj-form">';
 
 				$html .= '<h4>Add Contact</h4>';
 
