@@ -1,5 +1,32 @@
-#create-contact{
 
-	label{margin-right:5px;}
+/* == COLOURS === */
+@light-grey: #CCC;
+@dark-grey: #777;
+@vdark-grey: #333;
+
+.wpproj-form{
+
+	p{
+		margin-bottom:0; padding:0;
+	} // p
+
+	label{
+		margin-right:5px; padding:3px;
+		width:200px;
+		display:inline-block;
+	} // label
+
+	input{
+
+		&[type="text"]{
+			padding:3px;
+			width:215px;
+		} // &[type=text]
+
+		&:focus{border:1px solid @vdark-grey;}
+
+	} // input
+
+	#contact-street-second{margin:5px 0 0 211px;}
 
 } // #create-contact
