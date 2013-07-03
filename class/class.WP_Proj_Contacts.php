@@ -87,7 +87,10 @@ class WP_Proj_Contacts{
 				$html .= '<label for="contact-country">Country</label>';
 				$html .= $this->get_available_countries_dropdown();
 
-				$html .= apply_filters( 'wpproj_bottom_contact_field', $html );
+				ob_start();
+				do_action( 'wpproj_bottom_contact_field' );
+				$html .= ob_get_contents();
+				ob_clean();
 
 				$html .= wp_nonce_field( 'create-contact', '_create_contact_nonce', '', false );
 				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
