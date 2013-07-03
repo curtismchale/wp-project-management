@@ -51,6 +51,12 @@ class WP_Proj_Contacts{
 				$html .= '<label for="contact-email">Email</label>';
 				$html .= '<input type="text" name="contact-email" id="contact-email" value="" />';
 
+				$html .= '<label for="contact-phone-primary">Primary Phone</label>';
+				$html .= '<input type="text" name="contact-phone-primary" id="contact-phone-primary" value="" />';
+
+				$html .= '<label for="contact-phone-secondary">Secondary Phone</label>';
+				$html .= '<input type="text" name="contact-phone-secondary" id="contact-phone-secondary" value="" />';
+
 				do_action( 'wpproj_bottom_contact_field' );
 
 				$html .= wp_nonce_field( 'create-contact', '_create_contact_nonce', '', false );
