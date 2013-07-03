@@ -50,6 +50,7 @@ class WP_Proj{
 	 *
 	 * @uses wp_enqueue_script()        Registers and calls script
 	 * @uses wp_localize_script()       Localizing our script so I have ajax in it
+	 * @uses wp_enqueue_style()         Registers and calls our frontend styles the WordPress way
 	 */
 	public function enqueue(){
 
