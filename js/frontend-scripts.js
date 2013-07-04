@@ -11,9 +11,9 @@ jQuery(document).ready(function($) {
 		$.post( WPPROJ.ajaxurl, { action: 'get_add_contact_form' }, function ( response ){
 console.log(response);
 			if ( response.success === true ){
-				$(current).parent('p').append(response.value);
+				$(current).parent('p').append(response.data);
 			} else {
-				$(current).parent('p').append(response.value).find('.error').delay(4000).fadeOut(4000);
+				$(current).parent('p').append(response.data).find('.error').delay(4000).fadeOut(4000);
 			}
 
 		}, 'json' );
