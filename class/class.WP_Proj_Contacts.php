@@ -340,6 +340,11 @@ class WP_Proj_Contacts{
 				$html .= '<input type="text" name="contact-fax" id="contact-fax" value="" />';
 				$html .= '</p>';
 
+				ob_start();
+				do_action( 'wpproj_befare_address_section' );
+				$html .= ob_get_contents();
+				ob_clean();
+
 				$html .= '<h5>Address</h5>';
 
 				$html .= '<p id="street-address">';
