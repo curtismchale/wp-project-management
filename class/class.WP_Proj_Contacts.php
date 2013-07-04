@@ -341,7 +341,7 @@ class WP_Proj_Contacts{
 				$html .= '</p>';
 
 				ob_start();
-				do_action( 'wpproj_befare_address_section' );
+				do_action( 'wpproj_before_address_section' );
 				$html .= ob_get_contents();
 				ob_clean();
 
