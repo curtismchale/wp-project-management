@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 		var current = $(this);
 
 		$.post( WPPROJ.ajaxurl, { action: 'get_add_contact_form' }, function ( response ){
-console.log(response);
+
 			if ( response.success === true ){
 				$(current).parent('p').append(response.data);
 			} else {
