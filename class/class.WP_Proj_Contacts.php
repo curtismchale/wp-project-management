@@ -372,24 +372,11 @@ class WP_Proj_Contacts{
 
 			$html .= '</form><!-- #create-contact -->';
 
-			$ajax_response = array(
-				'success'   => true,
-				'value'     => $html,
-			);
+			wp_send_json_success( $html );
 
 		} else {
-			$ajax_response = array(
-				'success'   => false,
-				'value'     => '<p class="error">You do not have permission to add contacts</p>',
-			);
+			wp_send_json_error( 'Sorry you do not have permission to add contacts' );
 		} // if ( current_user_can( 'create_contact' )
-
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
-			echo json_encode( $ajax_response );
-			die;
-		} else {
-			return $ajax_response;
-		}
 
 	} // get_add_contact_form
 
