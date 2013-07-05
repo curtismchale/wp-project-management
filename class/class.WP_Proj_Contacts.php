@@ -269,6 +269,22 @@ class WP_Proj_Contacts{
 
 	} // __construct
 
+	/**
+	 * Saves or updates our contacts
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses wp_verify_nonce()          Helps us make sure that we are safe
+	 * @uses wp_get_current_user()      Gets WP User object for the current user
+	 * @uses esc_attr()                 Keeping our data safe
+	 * @uses wp_kses_post()             Sanitize like post_content
+	 * @uses wp_insert_post()           Creates/updates a post based on provided args
+	 * @uses update_post_meta()         Updates the meta on a post
+	 * @uses wp_send_json_sucess()      Returns a success=true json object to our AJAX call and does all our die stuff
+	 * @uses wp_send_json_error()       Returns a success=false json object to our AJAX call and does all our die stuff
+	 */
 	public function add_update_contact(){
 
 		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) ){
