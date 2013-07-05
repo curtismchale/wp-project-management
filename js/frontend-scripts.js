@@ -20,4 +20,32 @@ jQuery(document).ready(function($) {
 
 	});
 
+	/**
+	 * Getting all our form fields
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 */
+	$( document ).on( 'submit', '.wpproj-form', function(e){
+
+		e.preventDefault();
+
+		var form        = $(this);
+		var formaction  = $(form).attr('action');
+
+		$(form).ajaxSubmit({
+			data: {
+				action: formaction
+			}, // data
+			type: 'POST',
+			clearForm: true,
+			dataType: 'json',
+			url: WPPROJ.ajaxurl,
+			success: function( responseText, statusText, xhr, $form ){
+				console.log(responseText);
+			}
+		}); // ajaxSubmit
+
+	});
+
 });

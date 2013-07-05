@@ -17,6 +17,9 @@ class WP_Proj_Contacts{
 		add_action( 'wp_ajax_get_add_contact_form', array( $this, 'get_add_contact_form' ) );
 		add_action( 'wp_ajax_nopriv_get_add_contact_form', array( $this, 'get_add_contact_form' ) );
 
+		add_action( 'wp_ajax_add_update_contact', array( $this, 'add_update_contact' ) );
+		add_action( 'wp_ajax_nopriv_add_update_contact', array( $this, 'add_update_contact' ) );
+
 		$this->countries = apply_filters('wpproj_countries', array(
 			'AF' => __( 'Afghanistan', 'wpproj' ),
 			'AX' => __( '&#197;land Islands', 'wpproj' ),
@@ -265,6 +268,10 @@ class WP_Proj_Contacts{
 		));
 
 	} // __construct
+
+	public function add_update_contact(){
+		print_r( 'something' );
+	} // add_update_contact
 
 	/**
 	 * Builds out our create contact form
