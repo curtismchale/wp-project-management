@@ -272,7 +272,12 @@ class WP_Proj_Contacts{
 	public function add_update_contact(){
 
 		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) ){
-			print_r( $_POST );
+
+			$success = apply_filters( 'wpproj_form_success_message', $_POST['success_message'], $_POST );
+			wp_send_json_success( $success );
+		} else {
+			$error = apply_filters( 'wpproj_form_error_message', $_POST['error_message'], $_POST );;
+			wp_send_json_error( $error );
 		}
 
 	} // add_update_contact
@@ -389,6 +394,8 @@ class WP_Proj_Contacts{
 				$html .= ob_get_contents();
 				ob_clean();
 
+				$html .= '<input type="hidden" name="success_message" value="Contact Saved" />';
+				$html .= '<input type="hidden" name="error_message" value="Sorry the contact was not saved" />';
 				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
 
 			$html .= '</form><!-- #create-contact -->';
