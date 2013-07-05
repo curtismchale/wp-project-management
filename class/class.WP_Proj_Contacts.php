@@ -320,7 +320,7 @@ class WP_Proj_Contacts{
 				if ( isset( $_POST['contact-last-name'] ) )
 					update_post_meta( $id, 'contact-last-name', esc_attr( $_POST['contact-last-name'] ) );
 
-				$is_error = apply_filters( 'wpproj_save_extra_fields', $id, $_POST );
+				$is_error = apply_filters( 'wpproj_add_update_contact_extra_fields', $id, $_POST );
 				// @todo need to handle the error if people send it back
 
 			} // isset( $id ) && ! is_wp_error
