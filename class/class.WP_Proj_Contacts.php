@@ -273,6 +273,46 @@ class WP_Proj_Contacts{
 
 		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) ){
 
+			$current_user = wp_get_current_user();
+
+			// setting our post title
+			$post_title = $_POST['contact-first-name'];
+			if ( isset( $_POST['contact-last-name'] ) ) $post_title = $post_title .' '. $_POST['contact-last-name'];
+
+			$post_id = isset( $_POST['post_id'] ) ? $_POST['post_id'] : null;
+
+			$post_content = isset( $_POST['contact_comments'] ) ? $_POST['contact_comments'] : '';
+
+			$author = $current_user->ID;
+
+			$post_args = array(
+				'ID'            => (int) $post_id,
+				'post_title'    => esc_attr( $post_title ),
+				'post_content'  => wp_kses_post( $post_content ),
+				'post_type'     => 'wpproj_users',
+				'post_author'   => (int) $author,
+				'post_status'   => 'publish',
+			);
+
+			$id = wp_insert_post( $post_args );
+
+			if ( isset( $id ) && ! is_wp_error( $id ) ){
+
+				if ( isset( $_POST['contact-first-name'] ) )
+					update_post_meta( $id, 'contact-first-name', esc_attr( $_POST['contact-first-name'] ) );
+
+				if ( isset( $_POST['contact-last-name'] ) )
+					update_post_meta( $id, 'contact-last-name', esc_attr( $_POST['contact-last-name'] ) );
+
+				$is_error = apply_filters( 'wpproj_save_extra_fields', $id, $_POST );
+				// @todo need to handle the error if people send it back
+
+			} // isset( $id ) && ! is_wp_error
+
+
+
+			// connect post type with defined company
+
 			$success = apply_filters( 'wpproj_form_success_message', $_POST['success_message'], $_POST );
 			wp_send_json_success( $success );
 		} else {
