@@ -270,7 +270,11 @@ class WP_Proj_Contacts{
 	} // __construct
 
 	public function add_update_contact(){
-		print_r( 'something' );
+
+		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) ){
+			print_r( $_POST );
+		}
+
 	} // add_update_contact
 
 	/**
@@ -385,7 +389,6 @@ class WP_Proj_Contacts{
 				$html .= ob_get_contents();
 				ob_clean();
 
-				$html .= wp_nonce_field( 'create-contact', '_create_contact_nonce', '', false );
 				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
 
 			$html .= '</form><!-- #create-contact -->';

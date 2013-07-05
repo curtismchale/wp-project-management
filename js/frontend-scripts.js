@@ -35,7 +35,8 @@ jQuery(document).ready(function($) {
 
 		$(form).ajaxSubmit({
 			data: {
-				action: formaction
+				action: formaction,
+				_nonce: WPPROJ.formsubmitnonce
 			}, // data
 			type: 'POST',
 			clearForm: true,
