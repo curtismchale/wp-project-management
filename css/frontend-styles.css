@@ -1,0 +1,21 @@
+/* == COLOURS === */
+.wpproj-form p {
+  margin-bottom: 0;
+  padding: 0;
+}
+.wpproj-form label {
+  margin-right: 5px;
+  padding: 3px;
+  width: 200px;
+  display: inline-block;
+}
+.wpproj-form input[type="text"] {
+  padding: 3px;
+  width: 215px;
+}
+.wpproj-form input:focus {
+  border: 1px solid #333333;
+}
+.wpproj-form #contact-street-second {
+  margin: 5px 0 0 211px;
+}
