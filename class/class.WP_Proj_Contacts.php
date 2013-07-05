@@ -8,6 +8,7 @@ class WP_Proj_Contacts{
 
 		add_action( 'init', array( $this, 'user_cpt' ) );
 		add_action( 'init', array( $this, 'company_cpt' ) );
+		add_action( 'init', array( $this, 'position_tax' ) );
 
 		add_action( 'admin_menu', array( $this, 'add_contact_menu' ) );
 
@@ -577,6 +578,44 @@ class WP_Proj_Contacts{
 		);
 
 	} // company_cpt
+
+	/**
+	 * Adding taxonomy to hold the position of contacts in a company
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses register_taxonomy()        Registers tax given args
+	 *
+	 * @todo need to hide this and show based on dev constant
+	 */
+	public function position_tax(){
+
+		// Add new taxonomy, make it hierarchical (like categories)
+		$labels = array(
+			'name'              => _x( 'Position', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Position', 'taxonomy singular name' ),
+			'search_items'      =>  __( 'Search Positions' ),
+			'all_items'         => __( 'All Positions' ),
+			'parent_item'       => __( 'Parent Position' ),
+			'parent_item_colon' => __( 'Parent Position:' ),
+			'edit_item'         => __( 'Edit Position' ),
+			'update_item'       => __( 'Update Position' ),
+			'add_new_item'      => __( 'Add New Position' ),
+			'new_item_name'     => __( 'New Position Name' ),
+			'menu_name'         => __( 'Position' ),
+		);
+
+		register_taxonomy( 'wpproj_postion', array( 'wpproj_users' ), array(
+			'labels'       => $labels,
+			'hierarchical' => true,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'rewrite'      => array( 'slug' => 'positions' ),
+		));
+
+	} // position_tax
 
 	/**
 	 * Puts the contact admin menu in place
