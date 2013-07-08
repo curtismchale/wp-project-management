@@ -14,7 +14,7 @@
  */
 function wpproj_get_add_contact_button( $text = 'Add Contact' ){
 
-	$html = '<p><a href="#" id="wpproj-add-new-contact">'. esc_attr( $text ) .'</a></p>';
+	$html = '<p><a href="#" class="button" id="wpproj-add-new-contact">'. esc_attr( $text ) .'</a></p>';
 
 	return $html;
 
