@@ -326,7 +326,8 @@ class WP_Proj_Contacts{
 				if ( isset( $_POST['contact-last-name'] ) )
 					update_post_meta( $id, 'contact-last-name', esc_attr( $_POST['contact-last-name'] ) );
 
-				// @todo save position
+				if ( isset( $_POST['contact-position'] ) )
+					wp_set_object_terms( $id, (int) $_POST['contact-position'], 'wpproj_position' );
 
 				if ( isset( $_POST['contact-email'] ) && is_email( $_POST['contact-email'] ) ){
 					update_post_meta( $id, 'contact-email', esc_attr( $_POST['contact-email'] ) );
