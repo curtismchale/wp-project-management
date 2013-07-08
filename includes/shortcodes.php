@@ -29,15 +29,51 @@ class WPProj_Shortcodes{
 
 			$html .= wpproj_get_add_contact_button();
 
+			$html .= '<table id="show-contacts">';
+
+			$html .= '<tr>';
+				$html .= '<th>Type</th>';
+				$html .= '<th>Name</th>';
+				$html .= '<th>Position</th>';
+				$html .= '<th>Main Phone</th>';
+				$html .= '<th>Email</th>';
+			$html .= '</tr>';
+
 			if ( $users->have_posts() ) : while ( $users->have_posts() ) : $users->the_post();
 
-				$html .= get_the_title();
+				$html .= '<tr>';
+					$html .= '<td>icon for type</td>';
+					$html .= '<td>'. get_the_title() .'</td>';
+
+					$position = get_the_terms( get_the_ID(), 'wpproj_position' );
+
+					if ( isset( $position ) && ! is_wp_error( $position ) && ! empty( $position ) ){
+						$term = wp_list_pluck( $position, 'name' );
+						$key = key( $term );
+					} else {
+						$term = '&nbsp;';
+					}
+
+					$html .= '<td>'. $term[$key] .'</td>';
+
+					$phone = get_post_meta( get_the_ID(), 'contact-phone-primary', true );
+					$phone = ! empty( $phone ) ? esc_attr( $phone ) : '&nbsp';
+
+					$html .= '<td>'. $phone .'</td>';
+
+					$email = get_post_meta( get_the_ID(), 'contact-email', true );
+					$email = ! empty( $email ) ? '<a href="mailto:'. esc_attr( $email ) .'">'. esc_attr( $email ) .'</a>' : '&nbsp';
+
+					$html .= '<td>'. $email .'</td>';
+				$html .= '</tr>';
 
 			endwhile; else:
 
 				$html .= 'Sorry there are no users matching that query';
 
 			endif;
+
+			$html .= '</table><!-- /#show-contacts -->';
 
 		$html .= '</section><!-- /#wpproj-users -->';
 
