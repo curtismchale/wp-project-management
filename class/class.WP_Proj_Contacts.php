@@ -288,6 +288,8 @@ class WP_Proj_Contacts{
 	 */
 	public function add_update_contact(){
 
+		$is_error = array();
+
 		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) && current_user_can( 'create_contact' ) || current_user_can( 'update_contact' ) ){
 
 			$current_user = wp_get_current_user();
