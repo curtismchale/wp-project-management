@@ -650,7 +650,7 @@ class WP_Proj_Contacts{
 			'menu_name'         => __( 'Position' ),
 		);
 
-		register_taxonomy( 'wpproj_postion', array( 'wpproj_users' ), array(
+		register_taxonomy( 'wpproj_position', array( 'wpproj_users' ), array(
 			'labels'       => $labels,
 			'hierarchical' => true,
 			'show_ui'      => true,
