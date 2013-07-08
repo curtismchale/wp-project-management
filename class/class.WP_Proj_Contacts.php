@@ -428,7 +428,7 @@ class WP_Proj_Contacts{
 
 				$html .= '<p id="position">';
 				$html .= '<label for="contact-position">Position</label>';
-				$html .= '<input type="text" name="contact-position" id="contact-position" value="" />';
+				$html .= $this->get_available_positions_dropdown();
 				$html .= '</p>';
 
 				$html .= '<p id="email">';
@@ -507,6 +507,32 @@ class WP_Proj_Contacts{
 		} // if ( current_user_can( 'create_contact' )
 
 	} // get_add_contact_form
+
+	/**
+	 * Builds us a dropdown for our available contact positions
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access private
+	 *
+	 * @return string       The built out dropdown
+	 *
+	 * @uses get_terms()        Gets terms for given taxonomy based on args
+	 * @uses esc_attr()         Safety first
+	 */
+	private function get_available_positions_dropdown(){
+
+		$positions = get_terms( 'wpproj_position', array( 'hide_empty' => false ) );
+
+		$html = '<select class="chzn" name="contact-position" id="contact-position">';
+			foreach( $positions as $p ){
+				$html .= '<option value="'. esc_attr( $p->term_id ) .'">'. esc_attr( $p->name ) .'</option>';
+			}
+		$html .= '</select>';
+
+		return $html;
+
+	} // get_available_positions_dropdown
 
 	/**
 	 * Builds us a dropdown of the available countries for our contacts
