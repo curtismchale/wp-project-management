@@ -128,6 +128,11 @@ class WP_Proj{
 		$role->add_cap( 'update_tasks' );
 		$role->add_cap( 'delete_tasks' );
 
+		// @todo I don't think this will actually work on activate because the taxonomy doesn't exist yet
+		//      - probably need to convert this to a single schedule cron event and put any population stuff on that event
+		$contacts = new WP_Proj_Contacts();
+		$contacts->populate_positions();
+
 	} // activate
 
 	/**

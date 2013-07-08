@@ -8,6 +8,7 @@ class WP_Proj_Contacts{
 
 		add_action( 'init', array( $this, 'user_cpt' ) );
 		add_action( 'init', array( $this, 'company_cpt' ) );
+		add_action( 'init', array( $this, 'position_tax' ) );
 
 		add_action( 'admin_menu', array( $this, 'add_contact_menu' ) );
 
@@ -287,6 +288,8 @@ class WP_Proj_Contacts{
 	 */
 	public function add_update_contact(){
 
+		$is_error = array();
+
 		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) && current_user_can( 'create_contact' ) || current_user_can( 'update_contact' ) ){
 
 			$current_user = wp_get_current_user();
@@ -314,11 +317,53 @@ class WP_Proj_Contacts{
 
 			if ( isset( $id ) && ! is_wp_error( $id ) ){
 
+				// @todo finish capturing all my meta
+				// @todo save the taxonomy for position
+
 				if ( isset( $_POST['contact-first-name'] ) )
 					update_post_meta( $id, 'contact-first-name', esc_attr( $_POST['contact-first-name'] ) );
 
 				if ( isset( $_POST['contact-last-name'] ) )
 					update_post_meta( $id, 'contact-last-name', esc_attr( $_POST['contact-last-name'] ) );
+
+				if ( isset( $_POST['contact-position'] ) )
+					wp_set_object_terms( $id, (int) $_POST['contact-position'], 'wpproj_position' );
+
+				if ( isset( $_POST['contact-email'] ) && is_email( $_POST['contact-email'] ) ){
+					update_post_meta( $id, 'contact-email', esc_attr( $_POST['contact-email'] ) );
+				} else {
+					$is_error[] = array( 'field_id' => 'contact-email', 'message' => 'That is not a valid email' );
+				}
+
+				if ( isset( $_POST['contact-phone-primary'] ) )
+					update_post_meta( $id, 'contact-phone-primary', esc_attr( $_POST['contact-phone-primary'] ) );
+
+				if ( isset( $_POST['contact-phone-primary-ext'] ) )
+					update_post_meta( $id, 'contact-phone-primary-ext', esc_attr( $_POST['contact-phone-primary-ext'] ) );
+
+				if ( isset( $_POST['contact-mobile'] ) )
+					update_post_meta( $id, 'contact-mobile', esc_attr( $_POST['contact-mobile'] ) );
+
+				if ( isset( $_POST['contact-fax'] ) )
+					update_post_meta( $id, 'contact-fax', esc_attr( $_POST['contact-fax'] ) );
+
+				if ( isset( $_POST['contact-fax'] ) )
+					update_post_meta( $id, 'contact-fax', esc_attr( $_POST['contact-fax'] ) );
+
+				if ( isset( $_POST['contact-street'] ) )
+					update_post_meta( $id, 'contact-street', esc_attr( $_POST['contact-street'] ) );
+
+				if ( isset( $_POST['contact-street-second'] ) )
+					update_post_meta( $id, 'contact-street-second', esc_attr( $_POST['contact-street-second'] ) );
+
+				if ( isset( $_POST['contact-city'] ) )
+					update_post_meta( $id, 'contact-city', esc_attr( $_POST['contact-city'] ) );
+
+				if ( isset( $_POST['contact-prov-state'] ) )
+					update_post_meta( $id, 'contact-prov-state', esc_attr( $_POST['contact-prov-state'] ) );
+
+				if ( isset( $_POST['contact-zip-postal'] ) )
+					update_post_meta( $id, 'contact-zip-postal', esc_attr( $_POST['contact-zip-postal'] ) );
 
 				$is_error = apply_filters( 'wpproj_add_update_contact_extra_fields', $id, $_POST );
 				// @todo need to handle the error if people send it back
@@ -384,7 +429,7 @@ class WP_Proj_Contacts{
 
 				$html .= '<p id="position">';
 				$html .= '<label for="contact-position">Position</label>';
-				$html .= '<input type="text" name="contact-position" id="contact-position" value="" />';
+				$html .= $this->get_available_positions_dropdown();
 				$html .= '</p>';
 
 				$html .= '<p id="email">';
@@ -463,6 +508,32 @@ class WP_Proj_Contacts{
 		} // if ( current_user_can( 'create_contact' )
 
 	} // get_add_contact_form
+
+	/**
+	 * Builds us a dropdown for our available contact positions
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access private
+	 *
+	 * @return string       The built out dropdown
+	 *
+	 * @uses get_terms()        Gets terms for given taxonomy based on args
+	 * @uses esc_attr()         Safety first
+	 */
+	private function get_available_positions_dropdown(){
+
+		$positions = get_terms( 'wpproj_position', array( 'hide_empty' => false ) );
+
+		$html = '<select class="chzn" name="contact-position" id="contact-position">';
+			foreach( $positions as $p ){
+				$html .= '<option value="'. esc_attr( $p->term_id ) .'">'. esc_attr( $p->name ) .'</option>';
+			}
+		$html .= '</select>';
+
+		return $html;
+
+	} // get_available_positions_dropdown
 
 	/**
 	 * Builds us a dropdown of the available countries for our contacts
@@ -577,6 +648,78 @@ class WP_Proj_Contacts{
 		);
 
 	} // company_cpt
+
+	/**
+	 * Adding taxonomy to hold the position of contacts in a company
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses register_taxonomy()        Registers tax given args
+	 *
+	 * @todo need to hide this and show based on dev constant
+	 */
+	public function position_tax(){
+
+		// Add new taxonomy, make it hierarchical (like categories)
+		$labels = array(
+			'name'              => _x( 'Position', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Position', 'taxonomy singular name' ),
+			'search_items'      =>  __( 'Search Positions' ),
+			'all_items'         => __( 'All Positions' ),
+			'parent_item'       => __( 'Parent Position' ),
+			'parent_item_colon' => __( 'Parent Position:' ),
+			'edit_item'         => __( 'Edit Position' ),
+			'update_item'       => __( 'Update Position' ),
+			'add_new_item'      => __( 'Add New Position' ),
+			'new_item_name'     => __( 'New Position Name' ),
+			'menu_name'         => __( 'Position' ),
+		);
+
+		register_taxonomy( 'wpproj_position', array( 'wpproj_users' ), array(
+			'labels'       => $labels,
+			'hierarchical' => true,
+			'show_ui'      => true,
+			'query_var'    => true,
+			'rewrite'      => array( 'slug' => 'positions' ),
+		));
+
+	} // position_tax
+
+	/**
+	 * Populates the position taxonomy when called but only if there are no terms in the taxonomy already
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access protected
+	 *
+	 * @uses get_terms()            Gets terms for taxonomy given args
+	 * @uses term_exists()          Returns true if the term already exists in given taxonomy
+	 * @uses wp_insert_term()       Inserts term to the database
+	 */
+	public function populate_positions(){
+
+		$defined_positions = array(
+			'0' => array( 'name' => 'Billing', 'short' => 'billing' ),
+			'1' => array( 'name' => 'Owner', 'short' => 'owner' ),
+			'2' => array( 'name' => 'Assistant', 'short' => 'assistant' ),
+			'3' => array( 'name' => 'Designer', 'short' => 'designer' ),
+			'4' => array( 'name' => 'Developer', 'short' => 'developer' ),
+			'5' => array( 'name' => 'Marketing', 'short' => 'marketing' ),
+			'6' => array( 'name' => 'Project Lead', 'short' => 'project-lead' ),
+		);
+
+		$position = get_terms( 'wpproj_position', array( 'hide_empty' => false ) );
+
+		if ( empty( $position ) ){
+			foreach ( $defined_positions as $dposition ){
+				if ( ! term_exists( $dposition['name'], 'wpproj_position' ) ){
+					wp_insert_term( $dposition['name'], 'wpproj_position', array( 'slug', $dposition['short'] ) );
+				} // if
+			} // foreach
+		} // if empty( $position
+	}
 
 	/**
 	 * Puts the contact admin menu in place
