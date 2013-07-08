@@ -128,6 +128,9 @@ class WP_Proj{
 		$role->add_cap( 'update_tasks' );
 		$role->add_cap( 'delete_tasks' );
 
+		$contacts = new WP_Proj_Contacts();
+		$contacts->populate_positions();
+
 	} // activate
 
 	/**

@@ -661,6 +661,40 @@ class WP_Proj_Contacts{
 	} // position_tax
 
 	/**
+	 * Populates the position taxonomy when called but only if there are no terms in the taxonomy already
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access protected
+	 *
+	 * @uses get_terms()            Gets terms for taxonomy given args
+	 * @uses term_exists()          Returns true if the term already exists in given taxonomy
+	 * @uses wp_insert_term()       Inserts term to the database
+	 */
+	public function populate_positions(){
+
+		$defined_positions = array(
+			'0' => array( 'name' => 'Billing', 'short' => 'billing' ),
+			'1' => array( 'name' => 'Owner', 'short' => 'owner' ),
+			'2' => array( 'name' => 'Assistant', 'short' => 'assistant' ),
+			'3' => array( 'name' => 'Designer', 'short' => 'designer' ),
+			'4' => array( 'name' => 'Developer', 'short' => 'developer' ),
+			'5' => array( 'name' => 'Marketing', 'short' => 'marketing' ),
+			'6' => array( 'name' => 'Project Lead', 'short' => 'project-lead' ),
+		);
+
+		$position = get_terms( 'wpproj_position', array( 'hide_empty' => false ) );
+
+		if ( empty( $position ) ){
+			foreach ( $defined_positions as $dposition ){
+				if ( ! term_exists( $dposition['name'], 'wpproj_position' ) ){
+					wp_insert_term( $dposition['name'], 'wpproj_position', array( 'slug', $dposition['short'] ) );
+				} // if
+			} // foreach
+		} // if empty( $position
+	}
+
+	/**
 	 * Puts the contact admin menu in place
 	 *
 	 * @todo should really hide this later and make it available with a 'dev' constant
