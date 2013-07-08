@@ -317,11 +317,52 @@ class WP_Proj_Contacts{
 
 			if ( isset( $id ) && ! is_wp_error( $id ) ){
 
+				// @todo finish capturing all my meta
+				// @todo save the taxonomy for position
+
 				if ( isset( $_POST['contact-first-name'] ) )
 					update_post_meta( $id, 'contact-first-name', esc_attr( $_POST['contact-first-name'] ) );
 
 				if ( isset( $_POST['contact-last-name'] ) )
 					update_post_meta( $id, 'contact-last-name', esc_attr( $_POST['contact-last-name'] ) );
+
+				// @todo save position
+
+				if ( isset( $_POST['contact-email'] ) && is_email( $_POST['contact-email'] ) ){
+					update_post_meta( $id, 'contact-email', esc_attr( $_POST['contact-email'] ) );
+				} else {
+					$is_error[] = array( 'field_id' => 'contact-email', 'message' => 'That is not a valid email' );
+				}
+
+				if ( isset( $_POST['contact-phone-primary'] ) )
+					update_post_meta( $id, 'contact-phone-primary', esc_attr( $_POST['contact-phone-primary'] ) );
+
+				if ( isset( $_POST['contact-phone-primary-ext'] ) )
+					update_post_meta( $id, 'contact-phone-primary-ext', esc_attr( $_POST['contact-phone-primary-ext'] ) );
+
+				if ( isset( $_POST['contact-mobile'] ) )
+					update_post_meta( $id, 'contact-mobile', esc_attr( $_POST['contact-mobile'] ) );
+
+				if ( isset( $_POST['contact-fax'] ) )
+					update_post_meta( $id, 'contact-fax', esc_attr( $_POST['contact-fax'] ) );
+
+				if ( isset( $_POST['contact-fax'] ) )
+					update_post_meta( $id, 'contact-fax', esc_attr( $_POST['contact-fax'] ) );
+
+				if ( isset( $_POST['contact-street'] ) )
+					update_post_meta( $id, 'contact-street', esc_attr( $_POST['contact-street'] ) );
+
+				if ( isset( $_POST['contact-street-second'] ) )
+					update_post_meta( $id, 'contact-street-second', esc_attr( $_POST['contact-street-second'] ) );
+
+				if ( isset( $_POST['contact-city'] ) )
+					update_post_meta( $id, 'contact-city', esc_attr( $_POST['contact-city'] ) );
+
+				if ( isset( $_POST['contact-prov-state'] ) )
+					update_post_meta( $id, 'contact-prov-state', esc_attr( $_POST['contact-prov-state'] ) );
+
+				if ( isset( $_POST['contact-zip-postal'] ) )
+					update_post_meta( $id, 'contact-zip-postal', esc_attr( $_POST['contact-zip-postal'] ) );
 
 				$is_error = apply_filters( 'wpproj_add_update_contact_extra_fields', $id, $_POST );
 				// @todo need to handle the error if people send it back
