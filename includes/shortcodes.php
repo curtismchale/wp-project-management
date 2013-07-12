@@ -17,7 +17,8 @@ class WPProj_Shortcodes{
 	 *
 	 * @return string   All the HTML we just built
 	 *
-	 * @uses WP_Proj_User_Query()           WP_Query tailored for plugin users
+	 * @uses WP_Prok_Contacts->show_contact_table       Returns us the contact table
+	 * @uses current_user_can()                         Checks if the current user has the specified permissions
 	 */
 	public function show_users(){
 
