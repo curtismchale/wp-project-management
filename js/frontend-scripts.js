@@ -20,6 +20,15 @@ jQuery(document).ready(function($) {
 
 	});
 
+	$( document ).on( 'click', '#stop-new-contact', function(e){
+
+		// no linky
+		e.preventDefault();
+
+		$(this).parent('form').remove();
+
+	});
+
 	/**
 	 * Getting all our form fields
 	 *

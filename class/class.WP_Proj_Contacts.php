@@ -601,7 +601,8 @@ class WP_Proj_Contacts{
 
 				$html .= '<input type="hidden" name="success_message" value="Contact Saved" />';
 				$html .= '<input type="hidden" name="error_message" value="Sorry the contact was not saved" />';
-				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
+				$html .= '<input type="submit" class="button-primary" id="create-new-contact" value="Create New Contact" />';
+				$html .= '<input type="submit" class="button-secondary" id="stop-new-contact" value="Done" />';
 				$html .= '<img class="ajax-loader" src="'. plugins_url( '/wp-project-management/images/ajax-loader.gif' ) .'" />';
 				$html .= '<p class="user-feedback"></p>';
 
