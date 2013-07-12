@@ -73,7 +73,7 @@
   text-decoration: none;
 }
 .tab-wrapper .tab a:hover,
-.tab-wrapper .tab a .active {
+.tab-wrapper .tab a.active {
   text-decoration: none;
   color: white;
   background: #333;

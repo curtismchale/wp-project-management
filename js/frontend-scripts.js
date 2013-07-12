@@ -7,13 +7,18 @@ jQuery(document).ready(function($) {
 		e.preventDefault();
 
 		var current = $(this);
+		var wrapper = $(this).parent('ul');
+
+		$(wrapper).find('.active').removeClass('active');
+
+		$(current).addClass('active');
 
 		$.post( WPPROJ.ajaxurl, { action: 'get_add_contact_form' }, function ( response ){
 
 			if ( response.success === true ){
-				$(current).parent('p').append(response.data);
+				$(current).parents('.tab-wrapper').after(response.data);
 			} else {
-				$(current).parent('p').append(response.data).find('.error').delay(4000).fadeOut(4000);
+				$(current).parents('.tab-wrapper').after(response.data).find('.error').delay(4000).fadeOut(4000);
 			}
 
 		}, 'json' );
