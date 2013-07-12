@@ -317,9 +317,6 @@ class WP_Proj_Contacts{
 
 			if ( isset( $id ) && ! is_wp_error( $id ) ){
 
-				// @todo finish capturing all my meta
-				// @todo save the taxonomy for position
-
 				if ( isset( $_POST['contact-first-name'] ) )
 					update_post_meta( $id, 'contact-first-name', esc_attr( $_POST['contact-first-name'] ) );
 
