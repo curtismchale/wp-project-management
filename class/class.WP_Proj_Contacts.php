@@ -305,7 +305,7 @@ class WP_Proj_Contacts{
 
 			if ( $users->have_posts() ) : while ( $users->have_posts() ) : $users->the_post();
 
-				$this->get_single_table_row( get_the_ID() );
+				$html .= $this->get_single_table_row( get_the_ID() );
 
 			endwhile; else:
 
@@ -342,7 +342,7 @@ class WP_Proj_Contacts{
 	 */
 	private function get_single_table_row( $post_id ){
 
-		$html .= '<tr>';
+		$html = '<tr>';
 			$html .= '<td>icon for type</td>';
 			$html .= '<td>'. get_the_title( $post_id ) .'</td>';
 
@@ -355,7 +355,10 @@ class WP_Proj_Contacts{
 				$term = '&nbsp;';
 			}
 
-			$html .= '<td>'. $term[$key] .'</td>';
+			// @todo this is a terrible var name
+			$final_term = isset( $key ) ? $term[$key] : '';
+
+			$html .= '<td>'. $final_term .'</td>';
 
 			$phone = get_post_meta( $post_id, 'contact-phone-primary', true );
 			$phone = ! empty( $phone ) ? esc_attr( $phone ) : '&nbsp';
