@@ -5,6 +5,9 @@
 @vdark-grey: #333;
 
 /* === mixins === */
+.clear{clear:both; display:block;
+    &:after{content:''; display:block; clear:both;}
+}
 .success{
 	background:greenyellow;
 } // .success
@@ -54,3 +57,30 @@
 	.ajax-loader{margin:0 0 -6px 5px;}
 
 } // #create-contact
+
+/* === tabbs === */
+.tab-wrapper{
+	background:#CCC;
+	width:100%;
+	display:block;
+	.clear;
+	.tab{
+		list-style-type:none;
+		float:left;
+		margin-left:5px;
+
+		a{
+			padding:5px;
+			display:inline-block;
+			text-decoration:none;
+
+			&:hover,
+			.active{
+				text-decoration:none;
+				color:white;
+				background:#333;
+			}
+		} // a
+	} // .tab
+
+} // .tab-wrapper

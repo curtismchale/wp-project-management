@@ -14,7 +14,7 @@
  */
 function wpproj_get_add_contact_button( $text = 'Add Contact' ){
 
-	$html = '<p><a href="#" class="button" id="wpproj-add-new-contact">'. esc_attr( $text ) .'</a></p>';
+	$html = '<li class="tab"><a href="#" class="button" id="wpproj-add-new-contact">'. esc_attr( $text ) .'</a></li>';
 
 	return $html;
 
@@ -34,7 +34,7 @@ function wpproj_get_add_contact_button( $text = 'Add Contact' ){
  */
 function wpproj_get_add_company_button( $text = 'Add Company' ){
 
-	$html = '<p><a href="#" class="button" id="wpproj-add-new-company">'. esc_attr( $text ) .'</a></p>';
+	$html = '<li class="tab"><a href="#" class="button" id="wpproj-add-new-company">'. esc_attr( $text ) .'</a></li>';
 
 	return $html;
 

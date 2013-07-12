@@ -291,8 +291,10 @@ class WP_Proj_Contacts{
 
 			$html = '<section id="wpproj-users">';
 
-			$html .= wpproj_get_add_contact_button();
-			$html .= wpproj_get_add_company_button();
+			$html .= '<ul class="tab-wrapper">';
+				$html .= wpproj_get_add_contact_button();
+				$html .= wpproj_get_add_company_button();
+			$html .= '</ul><!-- /.tab-wrapper -->';
 
 			$html .= '<table id="show-contacts">';
 

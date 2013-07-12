@@ -1,5 +1,14 @@
 /* == COLOURS === */
 /* === mixins === */
+.clear {
+  clear: both;
+  display: block;
+}
+.clear:after {
+  content: '';
+  display: block;
+  clear: both;
+}
 .success {
   background: greenyellow;
 }
@@ -40,4 +49,32 @@
 }
 .wpproj-form .ajax-loader {
   margin: 0 0 -6px 5px;
+}
+/* === tabbs === */
+.tab-wrapper {
+  background: #CCC;
+  width: 100%;
+  clear: both;
+  display: block;
+}
+.tab-wrapper:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.tab-wrapper .tab {
+  list-style-type: none;
+  float: left;
+  margin-left: 5px;
+}
+.tab-wrapper .tab a {
+  padding: 5px;
+  display: inline-block;
+  text-decoration: none;
+}
+.tab-wrapper .tab a:hover,
+.tab-wrapper .tab a .active {
+  text-decoration: none;
+  color: white;
+  background: #333;
 }
