@@ -44,7 +44,8 @@
 .wpproj-form input:focus {
   border: 1px solid #333333;
 }
-.wpproj-form #contact-street-second {
+.wpproj-form #contact-street-second,
+.wpproj-form #company-street-second {
   margin: 5px 0 0 211px;
 }
 .wpproj-form .ajax-loader {

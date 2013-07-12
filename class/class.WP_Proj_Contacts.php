@@ -15,11 +15,16 @@ class WP_Proj_Contacts{
 		add_action( 'p2p_init', array( $this, 'set_contact_connections' ) );
 
 		/** AJAX **/
+		// contacts
 		add_action( 'wp_ajax_get_add_contact_form', array( $this, 'get_add_contact_form' ) );
 		add_action( 'wp_ajax_nopriv_get_add_contact_form', array( $this, 'get_add_contact_form' ) );
 
 		add_action( 'wp_ajax_add_update_contact', array( $this, 'add_update_contact' ) );
 		add_action( 'wp_ajax_nopriv_add_update_contact', array( $this, 'add_update_contact' ) );
+
+		// companies
+		add_action( 'wp_ajax_get_add_company_form', array( $this, 'get_add_company_form' ) );
+		add_action( 'wp_ajax_nopriv_get_add_company_form', array( $this, 'get_add_company_form' ) );
 
 		$this->countries = apply_filters('wpproj_countries', array(
 			'AF' => __( 'Afghanistan', 'wpproj' ),
@@ -492,6 +497,114 @@ class WP_Proj_Contacts{
 		}
 
 	} // add_update_contact
+
+	/**
+	 * Builds out our create company form
+	 *
+	 * @since 0.1
+	 * @auther SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @return array
+	 *
+	 * @uses current_user_can()                             Checks cap listed against current user
+	 * @uses wp_nonce_field()                               Generates a nonce field that we can check later
+	 * @uses $this->get_available_countries_dropdown()      Returns dropdown with available countries
+	 * @uses wp_send_json_sucess()                          Returns a success=true json object to our AJAX call and does all our die stuff
+	 * @uses wp_send_json_error()                           Returns a success=false json object to our AJAX call and does all our die stuff
+	 */
+	public function get_add_company_form(){
+
+		if ( current_user_can( 'create_contact' ) ){
+
+			$html = '<form id="create-company" class="wpproj-form" action="add_update_company">';
+
+				$html .= '<h4>Add Comany</h4>';
+
+				ob_start();
+				do_action( 'wpproj_top_company_field' );
+				$html .= ob_get_contents();
+				ob_clean();
+
+				$html .= '<p id="comany-name">';
+				$html .= '<label for="company-name">Company Name</label>';
+				$html .= '<input type="text" name="company-name" id="company-name" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="phone-primary">';
+				$html .= '<label for="company-phone-primary">Primary Phone</label>';
+				$html .= '<input type="text" name="company-phone-primary" id="company-phone-primary" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="primary-ext">';
+				$html .= '<label for="company-phone-primary-ext">Primary Phone Extension</label>';
+				$html .= '<input type="text" name="company-phone-primary-ext" id="company-phone-primary-ext" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="mobile">';
+				$html .= '<label for="company-billing">Billing Departement</label>';
+				$html .= '<input type="text" name="company-billing" id="company-billing" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="fax">';
+				$html .= '<label for="company-fax">Fax</label>';
+				$html .= '<input type="text" name="company-fax" id="company-fax" value="" />';
+				$html .= '</p>';
+
+				ob_start();
+				do_action( 'wpproj_before_address_section' );
+				$html .= ob_get_contents();
+				ob_clean();
+
+				$html .= '<h5>Address</h5>';
+
+				$html .= '<p id="street-address">';
+				$html .= '<label for="company-street">Street</label>';
+				$html .= '<input type="text" name="company-street" id="company-street" value="" /><br />';
+				$html .= '<input type="text" name="compayn-street-second" id="company-street-second" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="city">';
+				$html .= '<label for="company-city">City</label>';
+				$html .= '<input type="text" name="company-city" id="company-city" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="prov-state">';
+				$html .= '<label for="company-prov-state">Province/State</label>';
+				$html .= '<input type="text" name="company-prov-state" id="company-prov-state" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="zip-postal">';
+				$html .= '<label for="company-zip-postal">Zip/Postal Code</label>';
+				$html .= '<input type="text" name="company-zip-postal" id="company-zip-postal" value="" />';
+				$html .= '</p>';
+
+				$html .= '<p id="country">';
+				$html .= '<label for="company-country">Country</label>';
+				$html .= $this->get_available_countries_dropdown();
+				$html .= '</p>';
+
+				ob_start();
+				do_action( 'wpproj_bottom_company_field' );
+				$html .= ob_get_contents();
+				ob_clean();
+
+				$html .= '<input type="hidden" name="success_message" value="Contact Saved" />';
+				$html .= '<input type="hidden" name="error_message" value="Sorry the contact was not saved" />';
+				$html .= '<input type="submit" class="button-primary" id="create-new-company" value="Create New Company" />';
+				$html .= '<input type="submit" class="button-secondary" id="stop-new-company" value="Done" />';
+				$html .= '<img class="ajax-loader" src="'. plugins_url( '/wp-project-management/images/ajax-loader.gif' ) .'" />';
+				$html .= '<p class="user-feedback"></p>';
+
+			$html .= '</form><!-- #create-company -->';
+
+			wp_send_json_success( $html );
+
+		} else {
+			wp_send_json_error( 'Sorry you do not have permission to add companies' );
+		} // if ( current_user_can( 'create_contact' )
+
+	} // get_add_company_form
 
 	/**
 	 * Builds out our create contact form

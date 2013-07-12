@@ -9,7 +9,8 @@ jQuery(document).ready(function($) {
 		var current = $(this);
 		var wrapper = $(this).parent('ul');
 
-		$(wrapper).find('.active').removeClass('active');
+		remove_active_tab();
+		remove_form();
 
 		$(current).addClass('active');
 
@@ -31,6 +32,43 @@ jQuery(document).ready(function($) {
 		e.preventDefault();
 
 		$(this).parent('form').remove();
+		remove_active_tab();
+
+	});
+
+	/* === Adding Companies === */
+	$( document ).on( 'click', '#wpproj-add-new-company', function(e){
+
+		// no linky
+		e.preventDefault();
+
+		var current = $(this);
+		var wrapper = $(this).parent('ul');
+
+		remove_active_tab();
+		remove_form();
+
+		$(current).addClass('active');
+
+		$.post( WPPROJ.ajaxurl, { action: 'get_add_company_form' }, function ( response ){
+
+			if ( response.success === true ){
+				$(current).parents('.tab-wrapper').after(response.data);
+			} else {
+				$(current).parents('.tab-wrapper').after(response.data).find('.error').delay(4000).fadeOut(4000);
+			}
+
+		}, 'json' );
+
+	});
+
+	$( document ).on( 'click', '#stop-new-company', function(e){
+
+		// no linky
+		e.preventDefault();
+
+		$(this).parent('form').remove();
+		remove_active_tab();
 
 	});
 
@@ -70,5 +108,13 @@ jQuery(document).ready(function($) {
 		}); // ajaxSubmit
 
 	});
+
+	function remove_form(){
+		$('.wpproj-form').remove();
+	}
+
+	function remove_active_tab(){
+		$('.tab-wrapper').find('.active').removeClass('active');
+	}
 
 });
