@@ -292,6 +292,7 @@ class WP_Proj_Contacts{
 			$html = '<section id="wpproj-users">';
 
 			$html .= wpproj_get_add_contact_button();
+			$html .= wpproj_get_add_company_button();
 
 			$html .= '<table id="show-contacts">';
 
@@ -343,6 +344,7 @@ class WP_Proj_Contacts{
 	private function get_single_table_row( $post_id ){
 
 		$html = '<tr>';
+			// @todo get that icon based on the type of contact
 			$html .= '<td>icon for type</td>';
 			$html .= '<td>'. get_the_title( $post_id ) .'</td>';
 
