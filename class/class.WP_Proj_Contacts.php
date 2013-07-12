@@ -270,6 +270,21 @@ class WP_Proj_Contacts{
 
 	} // __construct
 
+	/**
+	 * Builds the headers for the contact table and calls the single row item
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @return string       Our built table
+	 *
+	 * @uses WP_Proj_User_Query()                   Wrapper for WP_Query that has defaults for our user CPT
+	 * @uses wpproj_get_add_contact_button()        Gets the button that allows you to add contacts
+	 * @uses $this->get_single_table_row()          Gets a single row for our table
+	 * @uses get_the_ID()                           Returns the post_id inside a loop
+	 * @uses wp_reset_postdata()                    Makes sure we clean up our globals after ourselves
+	 */
 	public function show_contact_table(){
 
 			$users = new WP_Proj_User_Query();
@@ -294,7 +309,7 @@ class WP_Proj_Contacts{
 
 			endwhile; else:
 
-				$html .= '<tr><td colspan=5>Sorry there are no users matching that query</td></tr>';
+				$html .= '<tr class="no-query"><td colspan=5>Sorry there are no users matching that query</td></tr>';
 
 			endif;
 
