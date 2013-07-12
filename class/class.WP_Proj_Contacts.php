@@ -290,31 +290,7 @@ class WP_Proj_Contacts{
 
 			if ( $users->have_posts() ) : while ( $users->have_posts() ) : $users->the_post();
 
-				$html .= '<tr>';
-					$html .= '<td>icon for type</td>';
-					$html .= '<td>'. get_the_title() .'</td>';
-
-					$position = get_the_terms( get_the_ID(), 'wpproj_position' );
-
-					if ( isset( $position ) && ! is_wp_error( $position ) && ! empty( $position ) ){
-						$term = wp_list_pluck( $position, 'name' );
-						$key = key( $term );
-					} else {
-						$term = '&nbsp;';
-					}
-
-					$html .= '<td>'. $term[$key] .'</td>';
-
-					$phone = get_post_meta( get_the_ID(), 'contact-phone-primary', true );
-					$phone = ! empty( $phone ) ? esc_attr( $phone ) : '&nbsp';
-
-					$html .= '<td>'. $phone .'</td>';
-
-					$email = get_post_meta( get_the_ID(), 'contact-email', true );
-					$email = ! empty( $email ) ? '<a href="mailto:'. esc_attr( $email ) .'">'. esc_attr( $email ) .'</a>' : '&nbsp';
-
-					$html .= '<td>'. $email .'</td>';
-				$html .= '</tr>';
+				$this->get_single_table_row( get_the_ID() );
 
 			endwhile; else:
 
@@ -331,6 +307,55 @@ class WP_Proj_Contacts{
 		return $html;
 
 	} // show_contact_table
+
+	/**
+	 * Gets a single table row for the contacts
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access private
+	 *
+	 * @param   int     $post_id    required        The post_id we are getting information for
+	 *
+	 * @return string               Our assembled HTML for the table row
+	 *
+	 * @uses get_the_title()        Returns the title
+	 * @uses get_the_terms()        Gets the array of terms
+	 * @uses wp_list_pluck          Preforms wizardry on arrays to pluck like keys out
+	 * @uses get_post_meta()        Gets meta on the post given post_id and key
+	 * @uses esc_attr()             Keeps things safe
+	 */
+	private function get_single_table_row( $post_id ){
+
+		$html .= '<tr>';
+			$html .= '<td>icon for type</td>';
+			$html .= '<td>'. get_the_title( $post_id ) .'</td>';
+
+			$position = get_the_terms( $post_id, 'wpproj_position' );
+
+			if ( isset( $position ) && ! is_wp_error( $position ) && ! empty( $position ) ){
+				$term = wp_list_pluck( $position, 'name' );
+				$key = key( $term );
+			} else {
+				$term = '&nbsp;';
+			}
+
+			$html .= '<td>'. $term[$key] .'</td>';
+
+			$phone = get_post_meta( $post_id, 'contact-phone-primary', true );
+			$phone = ! empty( $phone ) ? esc_attr( $phone ) : '&nbsp';
+
+			$html .= '<td>'. $phone .'</td>';
+
+			$email = get_post_meta( $post_id, 'contact-email', true );
+			$email = ! empty( $email ) ? '<a href="mailto:'. esc_attr( $email ) .'">'. esc_attr( $email ) .'</a>' : '&nbsp';
+
+			$html .= '<td>'. $email .'</td>';
+		$html .= '</tr>';
+
+		return $html;
+
+	} // get_single_table_row
 
 	/**
 	 * Saves or updates our contacts
