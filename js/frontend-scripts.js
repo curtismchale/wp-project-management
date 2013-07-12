@@ -51,7 +51,7 @@ jQuery(document).ready(function($) {
 			success: function( responseText, statusText, xhr, $form ){
 				$(ajaxloader).hide();
 				$( ajaxresponse ).after( responseText.data.returncontent );
-				$( userfeedback ).append( responseText.data.message ).delay( 4000 ).fadeOut( 4000 );
+				$( userfeedback ).empty().append( responseText.data.message ).addClass( 'success' ).show().delay( 4000 ).fadeOut( 4000 );
 			}
 		}); // ajaxSubmit
 

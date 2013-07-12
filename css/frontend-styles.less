@@ -4,6 +4,26 @@
 @dark-grey: #777;
 @vdark-grey: #333;
 
+/* === mixins === */
+.success{
+	background:greenyellow;
+} // .success
+
+.error{
+	background:indianred;
+} // .error
+
+.user-feedback{
+	width:100%;
+	padding:5px 10px;
+	display:none;
+} // .user-feedback
+
+.ajax-loader{
+	box-shadow:0 0 0 transparent !important;
+	display:none;
+} // .ajax-loader
+
 .wpproj-form{
 
 	p{
@@ -32,8 +52,3 @@
 	.ajax-loader{margin:0 0 -6px 5px;}
 
 } // #create-contact
-
-.ajax-loader{
-	box-shadow:0 0 0 transparent !important;
-	display:none;
-} // .ajax-loader

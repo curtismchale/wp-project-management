@@ -1,4 +1,20 @@
 /* == COLOURS === */
+/* === mixins === */
+.success {
+  background: greenyellow;
+}
+.error {
+  background: indianred;
+}
+.user-feedback {
+  width: 100%;
+  padding: 5px 10px;
+  display: none;
+}
+.ajax-loader {
+  box-shadow: 0 0 0 transparent !important;
+  display: none;
+}
 .wpproj-form p {
   margin-bottom: 0;
   padding: 0;
@@ -21,8 +37,4 @@
 }
 .wpproj-form .ajax-loader {
   margin: 0 0 -6px 5px;
-}
-.ajax-loader {
-  box-shadow: 0 0 0 transparent !important;
-  display: none;
 }
