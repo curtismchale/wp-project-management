@@ -506,7 +506,6 @@ class WP_Proj_Contacts{
 	 *
 	 * Need to finish adding the forms
 	 *  @todo add the company dropdown if companies exist
-	 *  @todo pass the new contact down to our table view of the contacts
 	 */
 	public function get_add_contact_form(){
 
