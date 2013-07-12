@@ -459,8 +459,6 @@ class WP_Proj_Contacts{
 	 *
 	 * Need to finish adding the forms
 	 *  @todo add the company dropdown if companies exist
-	 *  @todo handle the form save on the js side and passing all the fields in the form to the php side
-	 *  @todo save and validate our inputs on the php side
 	 *  @todo pass the new contact down to our table view of the contacts
 	 */
 	public function get_add_contact_form(){
