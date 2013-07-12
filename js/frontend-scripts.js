@@ -30,8 +30,14 @@ jQuery(document).ready(function($) {
 
 		e.preventDefault();
 
-		var form        = $(this);
-		var formaction  = $(form).attr('action');
+		var form            = $(this);
+		var formaction      = $(form).attr('action');
+		var ajaxloader      = $(form).find('.ajax-loader');
+		var userfeedback    = $(form).find('.user-feedback');
+
+		var ajaxresponse    = $( '#show-contacts' ).find( 'tr:first-child' );
+
+		$(ajaxloader).show();
 
 		$(form).ajaxSubmit({
 			data: {
@@ -43,7 +49,9 @@ jQuery(document).ready(function($) {
 			dataType: 'json',
 			url: WPPROJ.ajaxurl,
 			success: function( responseText, statusText, xhr, $form ){
-				console.log(responseText);
+				$(ajaxloader).hide();
+				$( ajaxresponse ).after( responseText.data.returncontent );
+				$( userfeedback ).append( responseText.data.message ).delay( 4000 ).fadeOut( 4000 );
 			}
 		}); // ajaxSubmit
 

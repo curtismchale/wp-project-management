@@ -19,3 +19,10 @@
 .wpproj-form #contact-street-second {
   margin: 5px 0 0 211px;
 }
+.wpproj-form .ajax-loader {
+  margin: 0 0 -6px 5px;
+}
+.ajax-loader {
+  box-shadow: 0 0 0 transparent !important;
+  display: none;
+}

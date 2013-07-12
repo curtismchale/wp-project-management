@@ -472,12 +472,16 @@ class WP_Proj_Contacts{
 
 			} // isset( $id ) && ! is_wp_error
 
-
-
-			// connect post type with defined company
+			// @todo connect post type with defined company
 
 			$success = apply_filters( 'wpproj_form_success_message', $_POST['success_message'], $_POST );
-			wp_send_json_success( $success );
+
+			$return_data = array(
+				'message'           => $success,
+				'returncontent'     => $this->get_single_table_row( $id ),
+			);
+
+			wp_send_json_success( $return_data );
 		} else {
 			$error = apply_filters( 'wpproj_form_error_message', $_POST['error_message'], $_POST );;
 			wp_send_json_error( $error );
@@ -598,6 +602,8 @@ class WP_Proj_Contacts{
 				$html .= '<input type="hidden" name="success_message" value="Contact Saved" />';
 				$html .= '<input type="hidden" name="error_message" value="Sorry the contact was not saved" />';
 				$html .= '<input type="submit" id="create-new-contact" value="Create New Contact" />';
+				$html .= '<img class="ajax-loader" src="'. plugins_url( '/wp-project-management/images/ajax-loader.gif' ) .'" />';
+				$html .= '<p class="user-feedback"></p>';
 
 			$html .= '</form><!-- #create-contact -->';
 
