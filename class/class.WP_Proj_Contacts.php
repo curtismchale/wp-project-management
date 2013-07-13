@@ -355,7 +355,7 @@ class WP_Proj_Contacts{
 
 		$html = '<tr>';
 			// @todo get that icon based on the type of contact
-			$html .= '<td>icon for type</td>';
+			$html .= '<td><p class="genericon '. wpproj_type_class( $post_id ) .'"></p></td>';
 			$html .= '<td>'. get_the_title( $post_id ) .'</td>';
 
 			$position = get_the_terms( $post_id, 'wpproj_position' );

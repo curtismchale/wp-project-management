@@ -81,3 +81,31 @@ function wpproj_get_phone( $post_id ){
 	}
 	return esc_attr( $phone );
 } // wpproj_get_phone
+
+/**
+ * Returns class based on user type
+ *
+ * @since 0.1
+ * @author SFNdesign, Curtis McHale
+ *
+ * @param int   $post_id    required    The post_id we are getting a class for
+ *
+ * @return string                       The class based on contact type
+ *
+ * @uses get_post_type()                Returns string based on the post type
+ */
+function wpproj_type_class( $post_id ){
+
+	$post_id = isset( $post_id ) ? (int) $post_id : null;
+
+	if ( get_post_type( $post_id ) === 'wpproj_users' ){
+		$class = 'user';
+	} elseif ( get_post_type( $post_id ) === 'wpproj_company' ){
+		$class = 'business';
+	} else {
+		$class = '';
+	}
+
+	return (string) $class;
+
+} // wpproj_type_class
