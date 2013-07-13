@@ -345,7 +345,7 @@ class WP_Proj_Contacts{
 	 * @uses get_the_title()        Returns the title
 	 * @uses get_the_terms()        Gets the array of terms
 	 * @uses wp_list_pluck          Preforms wizardry on arrays to pluck like keys out
-	 * @uses get_post_meta()        Gets meta on the post given post_id and key
+	 * @uses wpproj_get_phone()     Gets phone from company or from users CPTs
 	 * @uses esc_attr()             Keeps things safe
 	 */
 	private function get_single_table_row( $post_id ){
@@ -369,10 +369,7 @@ class WP_Proj_Contacts{
 
 			$html .= '<td>'. $final_term .'</td>';
 
-			$phone = get_post_meta( $post_id, 'contact-phone-primary', true );
-			$phone = ! empty( $phone ) ? esc_attr( $phone ) : '&nbsp';
-
-			$html .= '<td>'. $phone .'</td>';
+			$html .= '<td>'. wpproj_get_phone( $post_id ) .'</td>';
 
 			$email = get_post_meta( $post_id, 'contact-email', true );
 			$email = ! empty( $email ) ? '<a href="mailto:'. esc_attr( $email ) .'">'. esc_attr( $email ) .'</a>' : '&nbsp';

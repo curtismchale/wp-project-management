@@ -53,3 +53,31 @@ function wpproj_get_add_company_button( $text = 'Add Company' ){
 function wpproj_show_add_contact_button( $text = 'Add Contact' ){
 	echo wpproj_get_add_contact_button( $text );
 } // wpproj_get_add_contact_button
+
+/**
+ * Gets us the phone no matter what CPT it's saved under
+ *
+ * @since 0.1
+ * @author SFNdesign, Curtis McHale
+ *
+ * @param int   $post_id    required        The id of the post we are getting a phone for
+ *
+ * @return string|void      $phone          The phone number if it exists
+ *
+ * @uses get_post_type()                    Returns string name of the post type given
+ * @uses get_post_meta()                    Returns meta given key and post_id
+ * @uses esc_attr()                         Saftey safety
+ */
+function wpproj_get_phone( $post_id ){
+
+	$post_id = (int) $post_id;
+
+	if ( get_post_type( $post_id ) === 'wpproj_users' ){
+		$phone = get_post_meta( $post_id, 'contact-phone-primary', true );
+	} elseif ( get_post_type( $post_id ) === 'wpproj_company' ){
+		$phone = get_post_meta( $post_id, 'company-phone-primary', true );
+	} else {
+		$phone = '';
+	}
+	return esc_attr( $phone );
+} // wpproje_get_phone
