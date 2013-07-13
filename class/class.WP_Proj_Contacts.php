@@ -26,6 +26,9 @@ class WP_Proj_Contacts{
 		add_action( 'wp_ajax_get_add_company_form', array( $this, 'get_add_company_form' ) );
 		add_action( 'wp_ajax_nopriv_get_add_company_form', array( $this, 'get_add_company_form' ) );
 
+		add_action( 'wp_ajax_add_update_company', array( $this, 'add_update_company' ) );
+		add_action( 'wp_ajax_nopriv_add_update_company', array( $this, 'add_update_company' ) );
+
 		$this->countries = apply_filters('wpproj_countries', array(
 			'AF' => __( 'Afghanistan', 'wpproj' ),
 			'AX' => __( '&#197;land Islands', 'wpproj' ),
@@ -382,6 +385,99 @@ class WP_Proj_Contacts{
 	} // get_single_table_row
 
 	/**
+	 * Saves or updates our companies
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses wp_verify_nonce()          Helps us make sure that we are safe
+	 * @uses wp_get_current_user()      Gets WP User object for the current user
+	 * @uses esc_attr()                 Keeping our data safe
+	 * @uses wp_kses_post()             Sanitize like post_content
+	 * @uses wp_insert_post()           Creates/updates a post based on provided args
+	 * @uses update_post_meta()         Updates the meta on a post
+	 * @uses wp_send_json_sucess()      Returns a success=true json object to our AJAX call and does all our die stuff
+	 * @uses wp_send_json_error()       Returns a success=false json object to our AJAX call and does all our die stuff
+	 */
+	public function add_update_company(){
+
+		$is_error = array();
+
+		if ( isset( $_POST['_nonce'] ) && wp_verify_nonce( $_POST['_nonce'], 'ajax-form-submit-nonce' ) && current_user_can( 'create_contact' ) || current_user_can( 'update_contact' ) ){
+
+			$current_user = wp_get_current_user();
+
+			// setting our post title
+			$post_title = $_POST['company-name'];
+
+			$post_id = isset( $_POST['post_id'] ) ? $_POST['post_id'] : null;
+
+			$post_content = isset( $_POST['company_comments'] ) ? $_POST['contact_comments'] : '';
+
+			$author = $current_user->ID;
+
+			$post_args = array(
+				'ID'            => (int) $post_id,
+				'post_title'    => esc_attr( $post_title ),
+				'post_content'  => wp_kses_post( $post_content ),
+				'post_type'     => 'wpproj_company',
+				'post_author'   => (int) $author,
+				'post_status'   => 'publish',
+			);
+
+			$id = wp_insert_post( $post_args );
+
+			if ( isset( $id ) && ! is_wp_error( $id ) ){
+
+				if ( isset( $_POST['company-name'] ) )
+					update_post_meta( $id, 'company-name', esc_attr( $_POST['company-name'] ) );
+
+				if ( isset( $_POST['company-phone-primary'] ) )
+					update_post_meta( $id, 'company-phone-primary', esc_attr( $_POST['company-phone-primary'] ) );
+
+				if ( isset( $_POST['company-phone-primary-ext'] ) )
+					update_post_meta( $id, 'company-phone-primary-ext', esc_attr( $_POST['company-phone-primary-ext'] ) );
+
+				if ( isset( $_POST['company-fax'] ) )
+					update_post_meta( $id, 'company-fax', esc_attr( $_POST['company-fax'] ) );
+
+				if ( isset( $_POST['company-street'] ) )
+					update_post_meta( $id, 'company-street', esc_attr( $_POST['company-street'] ) );
+
+				if ( isset( $_POST['company-street-second'] ) )
+					update_post_meta( $id, 'company-street-second', esc_attr( $_POST['company-street-second'] ) );
+
+				if ( isset( $_POST['company-city'] ) )
+					update_post_meta( $id, 'company-city', esc_attr( $_POST['company-city'] ) );
+
+				if ( isset( $_POST['company-prov-state'] ) )
+					update_post_meta( $id, 'company-prov-state', esc_attr( $_POST['company-prov-state'] ) );
+
+				if ( isset( $_POST['company-zip-postal'] ) )
+					update_post_meta( $id, 'company-zip-postal', esc_attr( $_POST['company-zip-postal'] ) );
+
+				$is_error = apply_filters( 'wpproj_add_update_company_extra_fields', $id, $_POST );
+				// @todo need to handle the error if people send it back
+
+			} // isset( $id ) && ! is_wp_error
+
+			$success = apply_filters( 'wpproj_form_success_message', $_POST['success_message'], $_POST );
+
+			$return_data = array(
+				'message'           => $success,
+				'returncontent'     => $this->get_single_table_row( $id ),
+			);
+
+			wp_send_json_success( $return_data );
+		} else {
+			$error = apply_filters( 'wpproj_form_error_message', $_POST['error_message'], $_POST );;
+			wp_send_json_error( $error );
+		}
+
+	} // add_update_company
+
+	/**
 	 * Saves or updates our contacts
 	 *
 	 * @since 0.1
@@ -523,7 +619,7 @@ class WP_Proj_Contacts{
 				$html .= ob_get_contents();
 				ob_clean();
 
-				$html .= '<p id="comany-name">';
+				$html .= '<p id="company-name">';
 				$html .= '<label for="company-name">Company Name</label>';
 				$html .= '<input type="text" name="company-name" id="company-name" value="" />';
 				$html .= '</p>';
@@ -558,7 +654,7 @@ class WP_Proj_Contacts{
 				$html .= '<p id="street-address">';
 				$html .= '<label for="company-street">Street</label>';
 				$html .= '<input type="text" name="company-street" id="company-street" value="" /><br />';
-				$html .= '<input type="text" name="compayn-street-second" id="company-street-second" value="" />';
+				$html .= '<input type="text" name="company-street-second" id="company-street-second" value="" />';
 				$html .= '</p>';
 
 				$html .= '<p id="city">';
