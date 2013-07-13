@@ -569,12 +569,14 @@ class WP_Proj_Contacts{
 				if ( isset( $_POST['contact-zip-postal'] ) )
 					update_post_meta( $id, 'contact-zip-postal', esc_attr( $_POST['contact-zip-postal'] ) );
 
+				if ( isset( $_POST['company-list'] ) ){
+					p2p_type( 'wpproj_comp_to_wpproj_users' )->connect( $_POST['company-list'], $id, array( 'date' => current_time( 'mysql' ) ) );
+				}
+
 				$is_error = apply_filters( 'wpproj_add_update_contact_extra_fields', $id, $_POST );
 				// @todo need to handle the error if people send it back
 
 			} // isset( $id ) && ! is_wp_error
-
-			// @todo connect post type with defined company
 
 			$success = apply_filters( 'wpproj_form_success_message', $_POST['success_message'], $_POST );
 
@@ -745,6 +747,8 @@ class WP_Proj_Contacts{
 				$html .= $this->get_available_positions_dropdown();
 				$html .= '</p>';
 
+				$html .= $this->get_company_dropdown();
+
 				$html .= '<p id="email">';
 				$html .= '<label for="contact-email">Email</label>';
 				$html .= '<input type="text" name="contact-email" id="contact-email" value="" />';
@@ -824,6 +828,49 @@ class WP_Proj_Contacts{
 		} // if ( current_user_can( 'create_contact' )
 
 	} // get_add_contact_form
+
+	/**
+	 * Returns a dropdown of companies that we can then link to users
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access private
+	 *
+	 * @return string       The dropdown
+	 *
+	 * @uses get_posts()        Returns post objects given args
+	 * @uses esc_attr()         Safety
+	 * @uses get_the_title()    Returns title, post_id optional
+	 */
+	private function get_company_dropdown(){
+
+		$args = array(
+			'post_type'         => 'wpproj_company',
+			'posts_per_page'    => -1
+		);
+		$comp = get_posts( $args );
+
+		if ( ! empty( $comp) ){
+
+			$html = '<p id="company-list">';
+
+				$html .= '<label for="company-list">Company</label>';
+
+				$html .= '<select class="chzn" name="company-list" id="company-list">';
+					foreach( $comp as $c ){
+						$html .= '<option value="'. esc_attr( $c->ID ) .'">'. get_the_title( $c->ID ) .'</option>';
+					}
+				$html .= '</select>';
+
+			$html .= '</p><!-- /#company-list -->';
+
+		} else {
+			$html = '';
+		}
+
+		return $html;
+
+	} // get_company_dropdown
 
 	/**
 	 * Builds us a dropdown for our available contact positions
