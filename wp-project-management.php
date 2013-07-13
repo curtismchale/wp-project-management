@@ -38,8 +38,31 @@ class WP_Proj{
 		$this->includes();
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'admin_init', array( $this, 'user_redirect' ) );
 
 	} // construct
+
+	/**
+	 * Redirects users that are not admins to the frontend of the site
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 * @access public
+	 *
+	 * @uses current_user_can()         Returns true if the current user has cap specified
+	 * @uses wp_redirect()              Sends user to specified URL
+	 */
+	public function user_redirect(){
+
+		if( ! defined( 'DOING_AJAX' ) ){
+
+			if( ! current_user_can( 'activate_plugins' ) ){
+				wp_redirect( '/' );
+			}
+
+		} // doing_ajax
+
+	} // user_redirect
 
 	/**
 	 * Enqueues scripts and styles the WordPress way
