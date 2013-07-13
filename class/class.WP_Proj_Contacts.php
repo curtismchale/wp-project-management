@@ -569,7 +569,7 @@ class WP_Proj_Contacts{
 				if ( isset( $_POST['contact-zip-postal'] ) )
 					update_post_meta( $id, 'contact-zip-postal', esc_attr( $_POST['contact-zip-postal'] ) );
 
-				if ( isset( $_POST['company-list'] ) ){
+				if ( isset( $_POST['company-list'] ) && ! empty( $_POST['company-list'] ) ){
 					p2p_type( 'wpproj_comp_to_wpproj_users' )->connect( $_POST['company-list'], $id, array( 'date' => current_time( 'mysql' ) ) );
 				}
 
@@ -857,6 +857,7 @@ class WP_Proj_Contacts{
 				$html .= '<label for="company-list">Company</label>';
 
 				$html .= '<select class="chzn" name="company-list" id="company-list">';
+					$html .= '<option value=""></option>';
 					foreach( $comp as $c ){
 						$html .= '<option value="'. esc_attr( $c->ID ) .'">'. get_the_title( $c->ID ) .'</option>';
 					}
