@@ -287,7 +287,7 @@ class WP_Proj_Contacts{
 	 *
 	 * @return string       Our built table
 	 *
-	 * @uses WP_Proj_User_Query()                   Wrapper for WP_Query that has defaults for our user CPT
+	 * @uses WP_Proj_Contact_Query()                Wrapper for WP_Query that has defaults for our contact CPTs
 	 * @uses wpproj_get_add_contact_button()        Gets the button that allows you to add contacts
 	 * @uses $this->get_single_table_row()          Gets a single row for our table
 	 * @uses get_the_ID()                           Returns the post_id inside a loop
@@ -295,7 +295,7 @@ class WP_Proj_Contacts{
 	 */
 	public function show_contact_table(){
 
-			$users = new WP_Proj_User_Query();
+			$users = new WP_Proj_Contact_Query();
 
 			$html = '<section id="wpproj-users">';
 
