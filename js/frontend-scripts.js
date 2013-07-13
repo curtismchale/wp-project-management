@@ -62,6 +62,21 @@ jQuery(document).ready(function($) {
 
 	});
 
+	/**
+	 * Manual hack to help facilitate the creation of new companies from the user form
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 */
+	$( document ).on( 'click', '#create-new-company', function(e){
+
+		// no linky
+		e.preventDefault();
+
+		$( '#wpproj-add-new-company' ).click();
+
+	});
+
 	$( document ).on( 'click', '#stop-new-company', function(e){
 
 		// no linky

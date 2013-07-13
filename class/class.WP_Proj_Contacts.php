@@ -863,6 +863,8 @@ class WP_Proj_Contacts{
 					}
 				$html .= '</select>';
 
+				$html .= '<a href="#" id="create-new-company" class="small link">Create New Company</a>';
+
 			$html .= '</p><!-- /#company-list -->';
 
 		} else {
