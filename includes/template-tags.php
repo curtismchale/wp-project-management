@@ -80,4 +80,4 @@ function wpproj_get_phone( $post_id ){
 		$phone = '';
 	}
 	return esc_attr( $phone );
-} // wpproje_get_phone
+} // wpproj_get_phone
