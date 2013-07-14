@@ -320,7 +320,7 @@ class WP_Proj_Contacts{
 
 			endwhile; else:
 
-				$html .= '<tr class="no-query"><td colspan=5>Sorry there are no users matching that query</td></tr>';
+				$html .= '<tr class="no-query"><td colspan=6>Sorry there are no users matching that query</td></tr>';
 
 			endif;
 
@@ -378,6 +378,11 @@ class WP_Proj_Contacts{
 			$email = ! empty( $email ) ? '<a href="mailto:'. esc_attr( $email ) .'">'. esc_attr( $email ) .'</a>' : '&nbsp';
 
 			$html .= '<td>'. $email .'</td>';
+
+			$html .= '<td class="contact-controls">';
+				$html .= '<a href="' . $post_id .'" class="update-contact">Edit</a> | ';
+				$html .= '<a href="' . $post_id .'" class="view-contact">View</a>';
+			$html .= '</td>';
 		$html .= '</tr>';
 
 		return $html;
