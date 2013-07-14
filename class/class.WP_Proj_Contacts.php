@@ -720,9 +720,6 @@ class WP_Proj_Contacts{
 	 * @uses $this->get_available_countries_dropdown()      Returns dropdown with available countries
 	 * @uses wp_send_json_sucess()                          Returns a success=true json object to our AJAX call and does all our die stuff
 	 * @uses wp_send_json_error()                           Returns a success=false json object to our AJAX call and does all our die stuff
-	 *
-	 * Need to finish adding the forms
-	 *  @todo add the company dropdown if companies exist
 	 */
 	public function get_add_contact_form(){
 
