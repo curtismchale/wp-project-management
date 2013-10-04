@@ -1,4 +1,62 @@
-/* == COLOURS === */
+.left-float {
+  float: left;
+}
+.right-float {
+  float: right;
+}
+.center-float {
+  margin: 0 auto;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.justified {
+  text-align: justify;
+}
+.neg-1px {
+  letter-spacing: -1px;
+}
+.hr_thin {
+  border: 1px solid #ecf0f1;
+}
+.hr_medium {
+  border: 3px solid #ecf0f1;
+}
+.hr_thick {
+  border: 5px solid #ecf0f1;
+}
+.hr_thin_w {
+  border: 1px solid #ffffff;
+}
+.hr_medium_w {
+  border: 3px solid #ffffff;
+}
+.hr_thick_w {
+  border: 5px solid #ffffff;
+}
+.drop-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.round-corners {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
+}
+.border-bottom {
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: .5em;
+  margin-bottom: 1em;
+}
 /* === mixins === */
 .clear {
   clear: both;
@@ -62,7 +120,7 @@
   margin-right: 5px;
 }
 .wpproj-form input:focus {
-  border: 1px solid #333333;
+  border: 1px solid #7f8c8d;
 }
 .wpproj-form #contact-street-second,
 .wpproj-form #company-street-second {
@@ -73,7 +131,7 @@
 }
 /* === tabbs === */
 .tab-wrapper {
-  background: #CCC;
+  background: #c0392b;
   width: 100%;
   clear: both;
   display: block;
@@ -86,10 +144,8 @@
 .tab-wrapper .tab {
   list-style-type: none;
   float: left;
-  margin-left: 5px;
 }
 .tab-wrapper .tab a {
-  padding: 5px;
   display: inline-block;
   text-decoration: none;
 }
@@ -97,5 +153,5 @@
 .tab-wrapper .tab a.active {
   text-decoration: none;
   color: white;
-  background: #333;
+  background: #e67e22;
 }

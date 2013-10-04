@@ -1,8 +1,5 @@
-
-/* == COLOURS === */
-@light-grey: #CCC;
-@dark-grey: #777;
-@vdark-grey: #333;
+@import 'less/colors';
+@import 'less/mixins';
 
 /* === mixins === */
 .clear{clear:both; display:block;
@@ -79,7 +76,7 @@
 
 		&[type="submit"]{margin-right:5px;}
 
-		&:focus{border:1px solid @vdark-grey;}
+		&:focus{border:1px solid @asbestos;}
 
 	} // input
 
@@ -92,17 +89,15 @@
 
 /* === tabbs === */
 .tab-wrapper{
-	background:#CCC;
+	background:@pomegranate;
 	width:100%;
 	display:block;
 	.clear;
 	.tab{
 		list-style-type:none;
 		float:left;
-		margin-left:5px;
 
 		a{
-			padding:5px;
 			display:inline-block;
 			text-decoration:none;
 
@@ -110,7 +105,7 @@
 			&.active{
 				text-decoration:none;
 				color:white;
-				background:#333;
+				background:@carrot;
 			}
 		} // a
 	} // .tab
