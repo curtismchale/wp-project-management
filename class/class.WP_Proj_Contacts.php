@@ -379,7 +379,7 @@ class WP_Proj_Contacts{
 
 			$html .= '<td>'. $email .'</td>';
 
-			$html .= '<td class="contact-controls">';
+			$html .= '<td id="controls">';
 				$html .= '<a href="' . $post_id .'" class="update-contact">Edit</a> | ';
 				$html .= '<a href="' . $post_id .'" class="view-contact">View</a>';
 			$html .= '</td>';
@@ -725,7 +725,14 @@ class WP_Proj_Contacts{
 
 		if ( current_user_can( 'create_contact' ) ){
 
-			$html = '<form id="create-contact" class="wpproj-form" action="add_update_contact">';
+			if ( isset( $_POST['post_id'] ) ){
+				$html = '<tr class="form-wrapper"><td colspan="6">';
+				$post_id = $_POST['post_id'];
+			} else {
+				$html = '';
+			}
+
+			$html .= '<form id="create-contact" class="wpproj-form" action="add_update_contact">';
 
 				$html .= '<h4>Add Contact</h4>';
 
@@ -734,22 +741,26 @@ class WP_Proj_Contacts{
 				$html .= ob_get_contents();
 				ob_clean();
 
+				$fname = isset( $post_id ) ? wpproj_get_first_name( $post_id ) : '';
 				$html .= '<p id="first-name">';
 				$html .= '<label for="contact-first-name">First Name</label>';
-				$html .= '<input type="text" name="contact-first-name" id="contact-first-name" value="" />';
+				$html .= '<input type="text" name="contact-first-name" id="contact-first-name" value="'. esc_attr( $fname ) .'" />';
 				$html .= '</p>';
 
+				$lname = isset( $post_id ) ? wpproj_get_last_name( $post_id ) : '';
 				$html .= '<p id="last-name">';
 				$html .= '<label for="contact-last-name">Last Name</label>';
-				$html .= '<input type="text" name="contact-last-name" id="contact-last-name" value="" />';
+				$html .= '<input type="text" name="contact-last-name" id="contact-last-name" value="'. esc_attr( $lname ) .'" />';
 				$html .= '</p>';
 
+				$position = isset( $post_id ) ? wpproj_get_position_id( $post_id ) : '';
 				$html .= '<p id="position">';
 				$html .= '<label for="contact-position">Position</label>';
-				$html .= $this->get_available_positions_dropdown();
+				$html .= $this->get_available_positions_dropdown( $position );
 				$html .= '</p>';
 
-				$html .= $this->get_company_dropdown();
+				$company_id = isset( $post_id ) ? wpproj_get_company_id( $post_id ) : '';
+				$html .= $this->get_company_dropdown( $company_id );
 
 				$html .= '<p id="email">';
 				$html .= '<label for="contact-email">Email</label>';
@@ -815,6 +826,9 @@ class WP_Proj_Contacts{
 				ob_clean();
 
 				$html .= '<input type="hidden" name="success_message" value="Contact Saved" />';
+				if ( isset( $_POST['post_id'] ) ){
+					$html .= '<input type="hidden" name="post_id" id="post_id" value="'. $_POST['post_id'] .'" />';
+				}
 				$html .= '<input type="hidden" name="error_message" value="Sorry the contact was not saved" />';
 				$html .= '<input type="submit" class="button-primary" id="create-new-contact" value="Create New Contact" />';
 				$html .= '<input type="submit" class="button-secondary" id="stop-new-contact" value="Done" />';
@@ -822,6 +836,12 @@ class WP_Proj_Contacts{
 				$html .= '<p class="user-feedback"></p>';
 
 			$html .= '</form><!-- #create-contact -->';
+
+			if ( isset( $_POST['post_id'] ) ){
+				$html .= '</td></tr>';
+			} else {
+				$html .= '';
+			}
 
 			wp_send_json_success( $html );
 
@@ -884,18 +904,21 @@ class WP_Proj_Contacts{
 	 * @author SFNdesign, Curtis McHale
 	 * @access private
 	 *
+	 * @param int   $term_id    optional        The id of the selected term
+	 *
 	 * @return string       The built out dropdown
 	 *
 	 * @uses get_terms()        Gets terms for given taxonomy based on args
 	 * @uses esc_attr()         Safety first
 	 */
-	private function get_available_positions_dropdown(){
+	private function get_available_positions_dropdown( $term_id = null ){
 
 		$positions = get_terms( 'wpproj_position', array( 'hide_empty' => false ) );
 
 		$html = '<select class="chzn" name="contact-position" id="contact-position">';
 			foreach( $positions as $p ){
-				$html .= '<option value="'. esc_attr( $p->term_id ) .'">'. esc_attr( $p->name ) .'</option>';
+				$selected = selected( $term_id, $p->term_id, false );
+				$html .= '<option value="'. esc_attr( $p->term_id ) .'" '. $selected .'>'. esc_attr( $p->name ) .'</option>';
 			}
 		$html .= '</select>';
 

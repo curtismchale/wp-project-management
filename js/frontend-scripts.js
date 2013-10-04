@@ -87,6 +87,26 @@ jQuery(document).ready(function($) {
 
 	});
 
+	$( document ).on( 'click', '#controls .update-contact', function(e){
+
+		// no linky
+		e.preventDefault();
+
+		var current     = $(this);
+		var post_id     = $(this).attr('href');
+
+		$.post( WPPROJ.ajaxurl, { action: 'get_add_contact_form', post_id: post_id }, function ( response ){
+
+			if ( response.success === true ){
+				$(current).parents('tr').after(response.data).show();
+			} else {
+				$(current).parents('tr').after(response.data).find('.error').delay(4000).fadeOut(4000);
+			}
+
+		}, 'json' );
+
+	});
+
 	/**
 	 * Getting all our form fields
 	 *

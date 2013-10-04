@@ -109,3 +109,106 @@ function wpproj_type_class( $post_id ){
 	return (string) $class;
 
 } // wpproj_type_class
+
+/**
+ * Returns the name of the contact
+ *
+ * @param   int     $post_id    required    The post id we want meta for
+ *
+ * @return string|void      $name           The name
+ *
+ * @uses get_post_meta()                    Gets post meta given key and id
+ * @uses esc_attr()                         Saftef first
+ */
+function wpproj_get_first_name( $post_id ){
+
+	$name = get_post_meta( $post_id, 'contact-first-name', true );
+
+	$name = isset( $name ) ? $name : '';
+
+	return (string) $name;
+
+} // wpproj_get_first_name
+
+/**
+ * Returns the last name of the contact
+ *
+ * @param   int     $post_id    required    The post id we want meta for
+ *
+ * @return string|void      $name           The name
+ *
+ * @uses get_post_meta()                    Gets post meta given key and id
+ * @uses esc_attr()                         Saftef first
+ */
+function wpproj_get_last_name( $post_id ){
+
+	$name = get_post_meta( $post_id, 'contact-last-name', true );
+
+	$name = isset( $name ) ? $name : '';
+
+	return esc_attr( $name );
+
+} // wpproj_get_last_name
+
+/**
+ * Gets the term id for the user position
+ *
+ * @since 0.1
+ * @author SFNdesign, Curtis McHale
+ *
+ * @param int   $post_id    required    The id of the post we are trying to get terms for
+ *
+ * @return int  term_id
+ *
+ * @uses wp_get_object_terms()          Gets the terms of the given tax
+ */
+function wpproj_get_position_id( $post_id ){
+
+	$terms = wp_get_object_terms( $post_id, 'wpproj_position', array( 'fields' => 'ids' ) );
+
+	return (int) $terms['0'];
+
+} // wpproj_get_position_id
+
+/**
+ * Returns the id of the connected company
+ *
+ * @since 0.1
+ * @author SFNdesign, Curtis McHale
+ *
+ * @param int   $post_id    required    The id of the post/contact
+ *
+ * @return  $id      Company id
+ */
+function wpproj_get_company_id( $post_id ){
+
+	$post_object = get_post( $post_id );
+
+	$related = p2p_type( 'wpproj_comp_to_wpproj_users' )->get_related( $post_object );
+
+	$pid = wp_list_pluck( $related->posts, 'ID' );
+
+	print_r( $pid );
+
+} // wpproj_get_company_id
+
+/**
+ * Returns the link to the contact page
+ *
+ * @since 0.1
+ * @author SFNdesign, Curtis McHale
+ *
+ * @uses get_page_by_title()        Returns the page object based on a matching title
+ * @uses ge_permalink()             Returns the link to the object by given ID
+ *
+ * @return string
+ */
+function wppm_get_contact_page_link(){
+
+	$page = get_page_by_title( 'Contacts' );
+
+	$link = get_permalink( $page->ID );
+
+	return $link;
+
+} // wppm_get_contact_page_link
