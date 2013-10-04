@@ -299,10 +299,10 @@ class WP_Proj_Contacts{
 
 			$html = '<section id="wpproj-users">';
 
-			$html .= '<ul class="tab-wrapper">';
+			$html .= '<nav id="secondary-nav" class="nav tab-wrapper">';
 				$html .= wpproj_get_add_contact_button();
 				$html .= wpproj_get_add_company_button();
-			$html .= '</ul><!-- /.tab-wrapper -->';
+			$html .= '</nav><!-- /.tab-wrapper -->';
 
 			$html .= '<table id="show-contacts">';
 
