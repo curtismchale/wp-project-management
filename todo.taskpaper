@@ -10,6 +10,11 @@
 - show short list of 'prospect' tasks
 - show a short list of 'keep in touch tasks' for older projects
 
+# Keyboard
+- in general we need lots for everything
+- ? to trigger popup for keyboard shortcuts appliable for current page
+- CMD-N for new...whatever, contact, project, task depending on context
+
 # Future
 - build proposal in system and charge for it
 	- turn accepted proposal into project with tasks pulled out of proposal
