@@ -29,7 +29,22 @@ class WPP_Front_Projects{
 	 */
 	public function init(){
 
+		add_shortcode( 'wppm', array( $this, 'wppm' ) );
+
 	} // init
+
+	public function wppm(){
+
+		$html = '';
+
+			$html .= 'return all projects';
+			// get projects you have access to
+				// if no projects and 'client' then give option to contact site admin somehow
+				// if no projcets and 'admin' give option to add a project
+
+		return $html;
+
+	}
 
 }
 

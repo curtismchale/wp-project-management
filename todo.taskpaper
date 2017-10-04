@@ -2,3 +2,16 @@
 - install pages with shortcodes
 	- [wppm]
 - configure site for page as homepage under settings
+
+
+# Widgets
+- show all projects
+	- do we show 'status' of project as in how many tasks are done
+- show short list of 'prospect' tasks
+- show a short list of 'keep in touch tasks' for older projects
+
+# Future
+- build proposal in system and charge for it
+	- turn accepted proposal into project with tasks pulled out of proposal
+	- could use markdown formatting of some fashion to denote stages and tasks under stages
+
