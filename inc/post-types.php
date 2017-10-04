@@ -41,7 +41,7 @@ class WPPM_CPTS {
 	 */
 	public function add_projects_cpt(){
 
-		register_post_type( 'dare', // http://codex.wordpress.org/Function_Reference/register_post_type
+		register_post_type( 'wppm_project', // http://codex.wordpress.org/Function_Reference/register_post_type
 			array(
 				'labels'                => array(
 					'name'                  => __('Projects'),

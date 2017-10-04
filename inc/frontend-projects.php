@@ -33,11 +33,31 @@ class WPP_Front_Projects{
 
 	} // init
 
+	/**
+	 * Returns the main dashboard for WPPM
+	 *
+	 * @since 0.1
+	 * @author SFNdesign, Curtis McHale
+	 */
 	public function wppm(){
 
 		$html = '';
 
-			$html .= 'return all projects';
+			$projects = new WPPM_Projects();
+
+			$html .= '<ul>';
+
+			if ( $projects->have_posts() ) {
+				while ( $projects->have_posts() ) {
+					$projects->the_post();
+						$html .= '<li><a href="'. get_the_permalink() .'">'. get_the_title() .'</a></li>';
+				} // end while
+			}
+
+			$html .= '</ul>';
+
+			wp_reset_postdata();
+
 			// get projects you have access to
 				// if no projects and 'client' then give option to contact site admin somehow
 				// if no projcets and 'admin' give option to add a project
