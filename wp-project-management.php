@@ -89,8 +89,11 @@ class WP_Project_Management{
 	public function includes(){
 
 		require_once( WPPM_PLUGIN_DIR . '/inc/post-types.php' );
-		require_once( WPPM_PLUGIN_DIR . '/inc/frontend-projects.php' );
 		require_once( WPPM_PLUGIN_DIR . '/inc/queries.php' );
+
+		// frontend components
+		require_once( WPPM_PLUGIN_DIR . '/inc/frontend-projects.php' );
+		require_once( WPPM_PLUGIN_DIR . '/inc/frontend-tasks.php' );
 
 	}
 
