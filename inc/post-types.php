@@ -29,7 +29,47 @@ class WPPM_CPTS {
 	 */
 	public function init(){
 		add_action( 'init', array( $this, 'add_projects_cpt' ) );
+		add_action( 'init', array( $this, 'add_tasks_cpt' ) );
 	} // init
+
+	/**
+	 * Builds out the custom post types for the site
+	 *
+	 * @uses    register_post_type
+	 *
+	 * @since   1.0
+	 * @author  SFNdesign, Curtis McHale
+	 */
+	public function add_tasks_cpt(){
+
+		register_post_type( 'wppm_tasks', // http://codex.wordpress.org/Function_Reference/register_post_type
+			array(
+				'labels'                => array(
+					'name'                  => __('Tasks'),
+					'singular_name'         => __('Task'),
+					'add_new'               => __('Add New'),
+					'add_new_item'          => __('Add New Task'),
+					'edit'                  => __('Edit'),
+					'edit_item'             => __('Edit Task'),
+					'new_item'              => __('New Task'),
+					'view'                  => __('View Tasks'),
+					'view_item'             => __('View Task'),
+					'search_items'          => __('Search Tasks'),
+					'not_found'             => __('No Tasks Found'),
+					'not_found_in_trash'    => __('No Tasks found in Trash')
+				), // end array for labels
+				'public'                => true,
+				'menu_position'         => 5, // sets admin menu position
+				'menu_icon'             => 'dashicons-yes',
+				'hierarchical'          => false, // funcions like posts
+				'supports'              => array('title', 'editor', 'revisions', 'excerpt', 'thumbnail'),
+				'rewrite'               => array('slug' => 'tasks', 'with_front' => true,), // permalinks format
+				'can_export'            => true,
+			)
+		);
+
+	}
+
 
 	/**
 	 * Builds out the custom post types for the site
