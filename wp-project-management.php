@@ -90,6 +90,7 @@ class WP_Project_Management{
 
 		require_once( WPPM_PLUGIN_DIR . '/inc/post-types.php' );
 		require_once( WPPM_PLUGIN_DIR . '/inc/queries.php' );
+		require_once( WPPM_PLUGIN_DIR . '/inc/functions.php' );
 
 		// frontend components
 		require_once( WPPM_PLUGIN_DIR . '/inc/frontend-projects.php' );

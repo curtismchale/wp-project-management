@@ -31,6 +31,8 @@ class WPP_Front_Projects{
 
 		add_shortcode( 'wppm', array( $this, 'wppm' ) );
 
+		add_filter( 'the_content', array( $this, 'display_tasks' ) );
+
 	} // init
 
 	/**

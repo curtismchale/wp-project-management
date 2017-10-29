@@ -35,13 +35,37 @@ class WPPM_Tasks_Frontend{
 
 		$html = '';
 
-			$id = get_the_ID();
+			$project = get_the_ID();
+			$tasks = wppm_get_task_ids_for_project( absint( $project ) );
 
-			echo $id;
+			if ( isset( $tasks ) && ! empty( $tasks ) ){
+				$html .= self::display_tasks( $tasks );
+			}
 
-			// get any tasks related to the current post_id
+			$html .= self::new_task_form( absint( $project ) );
+
+		echo $html;
+
+	}
+
+	public static function new_task_form( $project_id ){
+
+		$html = '';
+
+		$html .= '<p>new task button</p>';
 
 		return $html;
+
+	}
+
+	private static function display_tasks( $tasks ){
+
+		$html = '';
+
+		$html .= 'show my tasks';
+
+		return $html;
+
 
 	}
 
