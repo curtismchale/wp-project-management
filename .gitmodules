@@ -1,3 +1,0 @@
-[submodule "lib/p2p"]
-	path = lib/p2p
-	url = git@github.com:scribu/wp-posts-to-posts.git
