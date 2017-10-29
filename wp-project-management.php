@@ -90,6 +90,7 @@ class WP_Project_Management{
 
 		require_once( WPPM_PLUGIN_DIR . '/inc/post-types.php' );
 		require_once( WPPM_PLUGIN_DIR . '/inc/queries.php' );
+		require_once( WPPM_PLUGIN_DIR . '/lib/p2p-connections.php' );
 
 		// frontend components
 		require_once( WPPM_PLUGIN_DIR . '/inc/frontend-projects.php' );
@@ -127,3 +128,21 @@ class WP_Project_Management{
 } // WP_Project_Management
 
 WP_Project_Management::instance();
+
+/**
+ * Loads up P2P for our post relationships
+ */
+function wppm_load_p2p_lib(){
+
+	if ( !function_exists( 'p2p_register_connection_type' ) ) {
+		require_once( WPPM_PLUGIN_DIR .'/wp-lib-posts-to-posts/autoload.php' );
+	}
+
+	P2P_Storage::init();
+	P2P_Query_Post::init();
+	P2P_Query_User::init();
+	P2P_URL_Query::init();
+	P2P_Widget::init();
+	P2P_Shortcodes::init();
+
+}
