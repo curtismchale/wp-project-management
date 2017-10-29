@@ -52,7 +52,14 @@ class WPPM_Tasks_Frontend{
 
 		$html = '';
 
-		$html .= '<p>new task button</p>';
+			$html .= '<form class="wpp-new-task" data-project_id="'. absint( $project_id ) .'">';
+
+				$html .= '<input type="text" class="wpp-task-title" placeholder="Title"/>';
+				$html .= '<input type="textarea" class="wpp-task-textarea" placeholder="Task Description"></textarea>';
+
+				$html .= '<button type="submit" class="wppm-task-button" value="Add Task" />Add Task</button>';
+			$html .= '</form>';
+
 
 		return $html;
 
