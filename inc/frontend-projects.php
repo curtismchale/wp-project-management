@@ -50,6 +50,11 @@ class WPP_Front_Projects{
 			if ( $projects->have_posts() ) {
 				while ( $projects->have_posts() ) {
 					$projects->the_post();
+
+						// @todo make sure you have access to this project to see it
+						//      - if no projects and 'client' then give option to contact site admin somehow
+						//      - if no projcets and 'admin' give option to add a project
+
 						$html .= '<li><a href="'. get_the_permalink() .'">'. get_the_title() .'</a></li>';
 				} // end while
 			}
@@ -58,9 +63,6 @@ class WPP_Front_Projects{
 
 			wp_reset_postdata();
 
-			// get projects you have access to
-				// if no projects and 'client' then give option to contact site admin somehow
-				// if no projcets and 'admin' give option to add a project
 
 		return $html;
 
